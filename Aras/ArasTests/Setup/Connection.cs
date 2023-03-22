@@ -26,6 +26,7 @@ namespace ArasTests.Setup
         private Connection()
         {
             // Do not use... singleton...
+            throw new NotImplementedException("Do not use.");
         }
         private Connection(string url, string db, string userName, string password) {
             Url = url;

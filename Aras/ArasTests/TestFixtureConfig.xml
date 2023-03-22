@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Environment>
+	<Url>http://localhost/innovator</Url>
+	<DatabaseName>InnovatorSolutions</DatabaseName>
+	<Users>
+		<User name="admin">
+			<Login>admin</Login>
+			<Password>innovator</Password>
+		</User>
+	</Users>
+</Environment>

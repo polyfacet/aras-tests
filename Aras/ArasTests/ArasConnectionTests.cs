@@ -13,9 +13,9 @@ namespace ArasTests
         [Trait("Category", "Core")]
         [Trait("Core", "Login")]
         public void LoginWithFixture_ShouldHaveALoggedInUser() {
-            string loggedInUserId = fixture.Inn.getUserID();
+            string loggedInUserId = fixture.GetAdminInn().getUserID();
             Assert.False(string.IsNullOrEmpty(loggedInUserId), "There should be a user id");
-            output.WriteLine(fixture.Inn.getUserID());
+            output.WriteLine(fixture.GetAdminInn().getUserID());
         }
     }
 

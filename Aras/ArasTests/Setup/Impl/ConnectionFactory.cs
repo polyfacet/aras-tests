@@ -13,5 +13,8 @@ namespace ArasTests.Setup.Impl
             return new DevParameterLoader();
         }
 
+        internal static IConnectionParametersListLoader GetConnectionParametersListLoader() {
+            return new TestFixtureConfigSessionLoader();
+        }
     }
 }

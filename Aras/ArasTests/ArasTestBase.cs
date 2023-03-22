@@ -10,12 +10,12 @@ namespace ArasTests
     {
         protected readonly ITestOutputHelper output;
         protected readonly ArasFixture fixture;
-        protected readonly Innovator.Client.IOM.Innovator Inn;
+        protected readonly Innovator.Client.IOM.Innovator AdminInn;
 
         public ArasTestBase(ArasFixture fixture, ITestOutputHelper output) {
             this.fixture = fixture;
             this.output = output;
-            Inn = fixture.Inn;
+            AdminInn = fixture.GetAdminInn();
         }
 
         protected AssertItem AssertItem(Item item) {

@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ArasTests.Setup
 {
     public class ArasFixture : IDisposable
     {
-        public Innovator.Client.IOM.Innovator Inn;
-        public Connection Connection;
+        //public Connection Connection;
+        private readonly List<UserSession> UserSessions = new();
 
         public ArasFixture()
         {
-            Console.WriteLine("Setup and connect to Aras");
-            ConnectionParameters param = ConnectionParameters.GetConnectionParameters("Test");
-            Connection = Connection.CreateInstance(param.Url,param.DBName,param.LoginName, param.Password);
-            Inn = Connection.Inn;
+            foreach (ConnectionParameters param in ConnectionParameters.GetConnectionParametersList()) {
+                var connection = Connection.CreateInstance(param.Url, param.DBName, param.LoginName, param.Password);
+                UserSessions.Add(new UserSession(param.Name, connection.Inn));
+            } 
+        }
+
+        public Innovator.Client.IOM.Innovator GetAdminInn() {
+            return GetInnovatorBySessionName("admin");
+        }
+
+        public Innovator.Client.IOM.Innovator GetInnovatorBySessionName(string name) {
+            var userSession = UserSessions.FirstOrDefault(u => u.Name?.ToUpper() == name?.ToUpper());
+            if (userSession != null) return userSession.Inn;
+            throw new ApplicationException($"No sesssion with name: {name} found");
         }
 
         public void Dispose()

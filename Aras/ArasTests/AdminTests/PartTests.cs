@@ -22,7 +22,7 @@ namespace ArasTests.AdminTests
         [Trait("Domain", "Part")]
         public void Admin_ShouldFindAPart() {
             // Act
-            Item part = Inn.newItem("Part", "get");
+            Item part = AdminInn.newItem("Part", "get");
             part.setAttribute("maxRecords", "1");
             part = part.apply();
 
@@ -35,7 +35,7 @@ namespace ArasTests.AdminTests
         [Trait("Part", "Create")]
         public void Admin_ShouldBeAbleToCreatePart() {
             // Act
-            Item part = Inn.newItem("Part", "add");
+            Item part = AdminInn.newItem("Part", "add");
             part = part.apply();
 
             // Assert
@@ -48,7 +48,7 @@ namespace ArasTests.AdminTests
         [Trait("Part", "Create")]
         public void ShouldBeAbleToCreateDesignPart() {
             // Arrange
-            MycronicBase myc = new MycronicBase(Inn);
+            MycronicBase myc = new MycronicBase(AdminInn);
             
             // Act
             Item part = myc.Part.Create.NewDesignedPart();

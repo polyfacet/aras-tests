@@ -20,7 +20,7 @@ namespace ArasTests.AdminTests
         [Trait("Domain", "Documents")]
         public void Admin_ShouldFindADocument() {
             // Act
-            Item document = Inn.newItem("Document", "get");
+            Item document = AdminInn.newItem("Document", "get");
             document.setAttribute("maxRecords", "1");
             document = document.apply();
 
