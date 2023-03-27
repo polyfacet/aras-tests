@@ -2,6 +2,7 @@ using ArasTests.Setup;
 using System;
 using Xunit;
 using Xunit.Abstractions;
+using ArasTests.Arranging;
 
 namespace ArasTests
 {
@@ -29,7 +30,7 @@ namespace ArasTests
                 int j =3;
                 int k = j/i;
             };
-            Arranger.Run(arrange);
+            ArrangeWrapper.Run(arrange);
             //Arranger.SetAction(arrangeAction).Run();
 
             // Act
@@ -38,44 +39,5 @@ namespace ArasTests
             //Assert
             Assert.Equal("HEPP", val);
         }
-
-        private class Arranger {
-            private Action _action;
-            public Arranger(Action action) {
-                _action = action;
-            }
-
-            public static Arranger SetAction(Action action) {
-                return new Arranger(action);
-            }
-
-            public void Run() {
-                try {
-                    _action();
-                }
-                catch (Exception ex) {
-                    throw new ArrangeException("Arrange exception: ", ex);
-                }
-            }
-
-            public static void Run(Action action) {
-                try {
-                    action();
-                }
-                catch (Exception ex) {
-                    throw new ArrangeException("Arrange exception: ", ex);
-                }
-            }
-        }
-
-        public class ArrangeException : Exception {
-            public ArrangeException(string message, Exception ex) : base(message, ex) {
-               
-            }
-        }
-
-
     }
-
-
 }
