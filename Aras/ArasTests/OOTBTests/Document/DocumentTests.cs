@@ -8,12 +8,14 @@ using Xunit;
 using Xunit.Abstractions;
 using Innovator.Client.IOM;
 
-namespace ArasTests.AdminTests
+namespace ArasTests.AdminTests.Document
 {
     public class DocumentTests : ArasTestBase
     {
         public DocumentTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
         }
+
+        private const string ITEM_TYPE = "Document";
 
         [Fact]
         [Trait("Category", "Core")]
@@ -21,7 +23,7 @@ namespace ArasTests.AdminTests
         [Trait("SmokeTest", "1")]
         public void Admin_ShouldFindADocument() {
             // Act
-            Item document = AdminInn.newItem("Document", "get");
+            Item document = AdminInn.newItem(ITEM_TYPE, "get");
             document.setAttribute("maxRecords", "1");
             document = document.apply();
 
@@ -35,10 +37,10 @@ namespace ArasTests.AdminTests
         [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreateDocument() {
             // Act
-            Item part = AdminInn.newItem("Document", "add");
-            string itemNumber = Guid.NewGuid().ToString().Substring(0,8);
+            Item part = AdminInn.newItem(ITEM_TYPE, "add");
+            string itemNumber = GetNewId();
             part.setProperty("item_number", itemNumber);
-            part.setProperty("name", "AutoTest");
+            part.setProperty("name", TEST_NAME);
 
             part = part.apply();
 

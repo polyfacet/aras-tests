@@ -7,23 +7,25 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using Innovator.Client.IOM;
-using ArasTests.Mycronic;
 
-namespace ArasTests.AdminTests
+
+namespace ArasTests.AdminTests.ECO
 {
     
-    public class PartTests : ArasTestBase
+    public class ECOTests : ArasTestBase
     {
-        public PartTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
+        public ECOTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
         }
+
+        private const string ITEM_TYPE = "Express ECO";
 
         [Fact]
         [Trait("Category", "Core")]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", "ECO")]
         [Trait("SmokeTest", "1")]
-        public void Admin_ShouldFindAPart() {
+        public void Admin_ShouldFindAnECO() {
             // Act
-            Item part = AdminInn.newItem("Part", "get");
+            Item part = AdminInn.newItem(ITEM_TYPE, "get");
             part.setAttribute("maxRecords", "1");
             part = part.apply();
 
@@ -32,15 +34,15 @@ namespace ArasTests.AdminTests
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
-        [Trait("Part", "Create")]
+        [Trait("Domain", "ECO")]
+        [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldBeAbleToCreatePart() {
+        public void Admin_ShouldBeAbleToCreateAnECO() {
             // Act
-            Item part = AdminInn.newItem("Part", "add");
-            string itemNumber = Guid.NewGuid().ToString().Substring(0,8);
+            Item part = AdminInn.newItem(ITEM_TYPE, "add");
+            string itemNumber = GetNewId();
             part.setProperty("item_number", itemNumber);
-            part.setProperty("name", "AutoTest");
+            part.setProperty("title", TEST_NAME);
 
             part = part.apply();
 
