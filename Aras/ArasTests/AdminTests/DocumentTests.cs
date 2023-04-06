@@ -18,6 +18,7 @@ namespace ArasTests.AdminTests
         [Fact]
         [Trait("Category", "Core")]
         [Trait("Domain", "Documents")]
+        [Trait("SmokeTest", "1")]
         public void Admin_ShouldFindADocument() {
             // Act
             Item document = AdminInn.newItem("Document", "get");
@@ -26,6 +27,24 @@ namespace ArasTests.AdminTests
 
             // Assert
             Assert.False(document.isError());
+        }
+
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Document", "Create")]
+        [Trait("Business", "OOTB")]
+        public void Admin_ShouldBeAbleToCreateDocument() {
+            // Act
+            Item part = AdminInn.newItem("Document", "add");
+            string itemNumber = Guid.NewGuid().ToString().Substring(0,8);
+            part.setProperty("item_number", itemNumber);
+            part.setProperty("name", "AutoTest");
+
+            part = part.apply();
+
+            // Assert
+            AssertItem(part).IsNotError();
+            
         }
     }
 }

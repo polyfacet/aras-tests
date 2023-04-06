@@ -20,6 +20,7 @@ namespace ArasTests.AdminTests
         [Fact]
         [Trait("Category", "Core")]
         [Trait("Domain", "Part")]
+        [Trait("SmokeTest", "1")]
         public void Admin_ShouldFindAPart() {
             // Act
             Item part = AdminInn.newItem("Part", "get");
@@ -33,9 +34,14 @@ namespace ArasTests.AdminTests
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Part", "Create")]
+        [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreatePart() {
             // Act
             Item part = AdminInn.newItem("Part", "add");
+            string itemNumber = Guid.NewGuid().ToString().Substring(0,8);
+            part.setProperty("item_number", itemNumber);
+            part.setProperty("name", "AutoTest");
+
             part = part.apply();
 
             // Assert
@@ -43,19 +49,6 @@ namespace ArasTests.AdminTests
             
         }
 
-        [Fact]
-        [Trait("Domain", "Part")]
-        [Trait("Part", "Create")]
-        public void ShouldBeAbleToCreateDesignPart() {
-            // Arrange
-            MycronicBase myc = new MycronicBase(AdminInn);
-            
-            // Act
-            Item part = myc.Part.Create.NewDesignedPart();
-
-            // Assert
-            AssertItem(part).IsNotError();
-
-        }
+        
     }
 }

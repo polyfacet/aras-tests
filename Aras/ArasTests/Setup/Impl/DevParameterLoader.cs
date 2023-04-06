@@ -10,8 +10,8 @@ namespace ArasTests.Setup.Impl
 {
     internal class DevParameterLoader : IConnectionParameterLoader
     {
-        private string Url = "http://localhost/DevR22";
-        private string DBName = "DevR22";
+        private string Url = "http://localhost/2023";
+        private string DBName = "2023";
         private string LoginName = "admin";
         private string Password = "innovator";
 
