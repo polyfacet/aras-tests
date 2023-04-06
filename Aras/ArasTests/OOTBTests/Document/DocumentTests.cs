@@ -37,15 +37,15 @@ namespace ArasTests.AdminTests.Document
         [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreateDocument() {
             // Act
-            Item part = AdminInn.newItem(ITEM_TYPE, "add");
+            Item document = AdminInn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
-            part.setProperty("item_number", itemNumber);
-            part.setProperty("name", TEST_NAME);
+            document.setProperty("item_number", itemNumber);
+            document.setProperty("name", TEST_NAME);
 
-            part = part.apply();
+            document = document.apply();
 
             // Assert
-            AssertItem(part).IsNotError();
+            AssertItem(document).IsNotError();
             
         }
     }

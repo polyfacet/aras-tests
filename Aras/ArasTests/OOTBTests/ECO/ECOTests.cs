@@ -25,12 +25,12 @@ namespace ArasTests.AdminTests.ECO
         [Trait("SmokeTest", "1")]
         public void Admin_ShouldFindAnECO() {
             // Act
-            Item part = AdminInn.newItem(ITEM_TYPE, "get");
-            part.setAttribute("maxRecords", "1");
-            part = part.apply();
+            Item eco = AdminInn.newItem(ITEM_TYPE, "get");
+            eco.setAttribute("maxRecords", "1");
+            eco = eco.apply();
 
             // Assert
-            Assert.False(part.isError());
+            Assert.False(eco.isError());
         }
 
         [Fact]
@@ -39,18 +39,31 @@ namespace ArasTests.AdminTests.ECO
         [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreateAnECO() {
             // Act
-            Item part = AdminInn.newItem(ITEM_TYPE, "add");
+            Item eco = AdminInn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
-            part.setProperty("item_number", itemNumber);
-            part.setProperty("title", TEST_NAME);
-
-            part = part.apply();
+            eco.setProperty("item_number", itemNumber);
+            eco.setProperty("title", TEST_NAME);
+            eco = eco.apply();
 
             // Assert
-            AssertItem(part).IsNotError();
+            AssertItem(eco).IsNotError();
             
         }
 
+        [Fact]
+        [Trait("Domain", "ECO")]
+        [Trait("ECO", "Create")]
+        [Trait("Business", "OOTB")]
+        public void Admin_ShouldNotBeAbleToCreateAnECO_WhenTitleIsNotSet() {
+            // Arrange/Act
+            Item eco = AdminInn.newItem(ITEM_TYPE, "add");
+            string itemNumber = GetNewId();
+            eco.setProperty("item_number", itemNumber);
+            eco = eco.apply();
+
+            // Assert
+            AssertItem(eco).IsError();
+        }
         
     }
 }
