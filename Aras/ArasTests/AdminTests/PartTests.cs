@@ -14,7 +14,7 @@ namespace ArasTests.AdminTests
     
     public class PartTests : ArasTestBase
     {
-        public PartTests(ArasFixture fixture, ITestOutputHelper output) : base(fixture, output) {
+        public PartTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
         }
 
         [Fact]

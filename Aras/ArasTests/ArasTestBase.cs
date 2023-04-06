@@ -9,10 +9,10 @@ namespace ArasTests
     public abstract class ArasTestBase
     {
         protected readonly ITestOutputHelper output;
-        protected readonly ArasFixture fixture;
+        protected readonly ArasCollectionFixture fixture;
         protected readonly Innovator.Client.IOM.Innovator AdminInn;
 
-        public ArasTestBase(ArasFixture fixture, ITestOutputHelper output) {
+        public ArasTestBase(ArasCollectionFixture fixture, ITestOutputHelper output) {
             this.fixture = fixture;
             this.output = output;
             AdminInn = fixture.GetAdminInn();

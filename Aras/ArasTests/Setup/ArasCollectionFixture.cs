@@ -5,12 +5,12 @@ using Xunit;
 
 namespace ArasTests.Setup
 {
-    public class ArasFixture : IDisposable
+    public class ArasCollectionFixture : IDisposable
     {
         //public Connection Connection;
         private readonly List<UserSession> UserSessions = new();
 
-        public ArasFixture()
+        public ArasCollectionFixture()
         {
             foreach (ConnectionParameters param in ConnectionParameters.GetConnectionParametersList()) {
                 var connection = Connection.CreateInstance(param.Url, param.DBName, param.LoginName, param.Password);
@@ -25,7 +25,7 @@ namespace ArasTests.Setup
         public Innovator.Client.IOM.Innovator GetInnovatorBySessionName(string name) {
             var userSession = UserSessions.FirstOrDefault(u => u.Name?.ToUpper() == name?.ToUpper());
             if (userSession != null) return userSession.Inn;
-            throw new ApplicationException($"No sesssion with name: {name} found");
+            throw new ApplicationException($"No session with name: {name} found");
         }
 
         public void Dispose()
@@ -35,7 +35,7 @@ namespace ArasTests.Setup
     }
 
     [CollectionDefinition("Aras setup")]
-    public class DatabaseCollection : ICollectionFixture<ArasFixture>
+    public class DatabaseCollection : ICollectionFixture<ArasCollectionFixture>
     {
         // This class has no code, and is never created. Its purpose is simply
         // to be the place to apply [CollectionDefinition] and all the

@@ -12,7 +12,7 @@ namespace ArasTests.AdminTests
 {
     public class DocumentTests : ArasTestBase
     {
-        public DocumentTests(ArasFixture fixture, ITestOutputHelper output) : base(fixture, output) {
+        public DocumentTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
         }
 
         [Fact]

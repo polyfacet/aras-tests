@@ -8,7 +8,7 @@ namespace ArasTests
 {
     public class ArasConnectionTests : ArasTestBase
     {
-        public ArasConnectionTests(ArasFixture fixture, ITestOutputHelper output) : base(fixture, output) {
+        public ArasConnectionTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
         }
 
         [Fact]
