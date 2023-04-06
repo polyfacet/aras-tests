@@ -19,5 +19,9 @@ namespace ArasTests
         internal void IsNotError() {
             Assert.False(item.isError(), item.getErrorString());
         }
+
+        internal void IsError() {
+            Assert.True(item.isError(), $"Expected error item. DOM: {item.dom.InnerXml}");
+        }
     }
 }
