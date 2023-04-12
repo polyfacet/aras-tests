@@ -24,10 +24,6 @@ namespace ArasTests.Setup
         public string LoginName;
         public string Password;
 
-        public static ConnectionParameters GetConnectionParameters(string name) {
-            return ConnectionFactory.GetConnectionParameterLoader().GetConnectionParameters(name);
-        }
-
         public static List<ConnectionParameters> GetConnectionParametersList() {
             return ConnectionFactory.GetConnectionParametersListLoader().GetConnectionParametersList();
         }

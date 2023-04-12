@@ -9,8 +9,15 @@ namespace ArasTests.Setup.Impl {
         
         List<ConnectionParameters> IConnectionParametersListLoader.GetConnectionParametersList() {
             var list = new List<ConnectionParameters>();
-            ConnectionParameters param = new DevParameterLoader().GetConnectionParameters("admin");
-            list.Add(param);
+
+            TestFixtureParameterLoader paramLoader = new();
+
+            HashSet<string> userLabels = paramLoader.GetUserLabels();
+
+            foreach (string label in userLabels) {
+                ConnectionParameters param = paramLoader.GetConnectionParameters(label);
+                list.Add(param);
+            }
             return list;
         }
     }

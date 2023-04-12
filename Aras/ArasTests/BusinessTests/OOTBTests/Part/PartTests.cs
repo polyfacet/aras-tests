@@ -12,7 +12,7 @@ using ArasTests.Arranging;
 namespace ArasTests.BusinessTests.OOTBTests.Part
 {
 
-    public class PartTests : ArasTestBase
+    public class PartTests : OOTBTest
     {
         public PartTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
@@ -60,8 +60,20 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToManuallyReleasePart()
         {
+            User_ShouldBeAbleToManuallyReleasePart(AdminInn);
+        }
+
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Part", "Release")]
+        [Trait("Business", "OOTB")]
+        public void CM_ShouldBeAbleToManuallyReleasePart() {
+            User_ShouldBeAbleToManuallyReleasePart(CMInn);
+        }
+
+        private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
             // Arrange
-            Arrange arrange = new Arrange(AdminInn);
+            Arrange arrange = new Arrange(inn);
             Item part = arrange.CreateDefault("Part");
 
             // Act

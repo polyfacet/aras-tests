@@ -9,7 +9,7 @@ namespace ArasTests.Models.OOTB {
             string itemNumber = Generators.GetNewId();;
             part.setProperty("item_number", itemNumber);
             part.setProperty("name", ArasTestBase.TEST_NAME);
-            part.setProperty("owned_by_id",  User.GetIdentity(inn).getID());
+            part.setProperty("owned_by_id", InnovatorBase.GetIdentity(inn).getID());
             part = part.apply();
             return part;
         }

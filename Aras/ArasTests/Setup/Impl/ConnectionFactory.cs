@@ -8,11 +8,6 @@ namespace ArasTests.Setup.Impl
 {
     internal class ConnectionFactory
     {
-        public static IConnectionParameterLoader GetConnectionParameterLoader()
-        {
-            return new DevParameterLoader();
-        }
-
         internal static IConnectionParametersListLoader GetConnectionParametersListLoader() {
             return new TestFixtureConfigSessionLoader();
         }

@@ -10,7 +10,7 @@ using Innovator.Client.IOM;
 
 namespace ArasTests.BusinessTests.OOTBTests.Document
 {
-    public class DocumentTests : ArasTestBase
+    public class DocumentTests : OOTBTest
     {
         public DocumentTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {

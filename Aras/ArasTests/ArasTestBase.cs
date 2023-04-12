@@ -12,6 +12,7 @@ namespace ArasTests
         protected readonly ITestOutputHelper output;
         protected readonly ArasCollectionFixture fixture;
         protected readonly Innovator.Client.IOM.Innovator AdminInn;
+        
 
         public ArasTestBase(ArasCollectionFixture fixture, ITestOutputHelper output) {
             this.fixture = fixture;

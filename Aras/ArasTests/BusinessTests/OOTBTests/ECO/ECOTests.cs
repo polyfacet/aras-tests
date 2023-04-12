@@ -12,7 +12,7 @@ using Innovator.Client.IOM;
 namespace ArasTests.BusinessTests.OOTBTests.ECO
 {
 
-    public class ECOTests : ArasTestBase
+    public class ECOTests : OOTBTest
     {
         public ECOTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {

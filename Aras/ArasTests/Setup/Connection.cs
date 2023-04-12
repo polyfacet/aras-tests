@@ -46,11 +46,11 @@ namespace ArasTests.Setup
 
         public static Connection CreateInstance(string url, string db, string userName, string password)
         {
-            if (_connection == null)
-            {
+            //if (_connection == null)
+            //{
                 _connection = new Connection(url,db, userName, password);
                 _connection.Key = $"{url};{db};{userName};"; 
-            }
+            //}
             return _connection;
         }
 

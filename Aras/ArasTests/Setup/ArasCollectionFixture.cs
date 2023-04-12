@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ArasTests.Common.Aras;
+using Innovator.Client.IOM;
+using Innovator.Client.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -9,18 +12,33 @@ namespace ArasTests.Setup
     {
         //public Connection Connection;
         private readonly List<UserSession> UserSessions = new();
+        
 
         public ArasCollectionFixture()
         {
             foreach (ConnectionParameters param in ConnectionParameters.GetConnectionParametersList()) {
                 var connection = Connection.CreateInstance(param.Url, param.DBName, param.LoginName, param.Password);
                 UserSessions.Add(new UserSession(param.Name, connection.Inn));
-            } 
+
+
+                // TODO: Refactor
+                Users users = new Users(GetAdminInn());
+                if (!users.UserExists("Batman")) {
+                    Item cmUser = users.CreateNewUser("Batman", "test", "Bruce", "Wayne");
+                    users.AddUserAsMember(cmUser, "World");
+                    users.AddUserAsMember(cmUser, "All Employees");
+                    users.AddUserAsMember(cmUser, "CM");
+                }
+                var connCM = Connection.CreateInstance(param.Url, param.DBName, "Batman", "test");
+                UserSessions.Add(new UserSession("CM", connCM.Inn));
+            }
+           
         }
 
         public Innovator.Client.IOM.Innovator GetAdminInn() {
             return GetInnovatorBySessionName("admin");
         }
+
 
         public Innovator.Client.IOM.Innovator GetInnovatorBySessionName(string name) {
             var userSession = UserSessions.FirstOrDefault(u => u.Name?.ToUpper() == name?.ToUpper());
