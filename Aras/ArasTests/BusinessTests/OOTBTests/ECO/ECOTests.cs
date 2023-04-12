@@ -9,12 +9,13 @@ using Xunit.Abstractions;
 using Innovator.Client.IOM;
 
 
-namespace ArasTests.AdminTests.ECO
+namespace ArasTests.BusinessTests.OOTBTests.ECO
 {
-    
+
     public class ECOTests : ArasTestBase
     {
-        public ECOTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
+        public ECOTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        {
         }
 
         private const string ITEM_TYPE = "Express ECO";
@@ -23,7 +24,8 @@ namespace ArasTests.AdminTests.ECO
         [Trait("Category", "Core")]
         [Trait("Domain", "ECO")]
         [Trait("SmokeTest", "1")]
-        public void Admin_ShouldFindAnECO() {
+        public void Admin_ShouldFindAnECO()
+        {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "get");
             eco.setAttribute("maxRecords", "1");
@@ -37,7 +39,8 @@ namespace ArasTests.AdminTests.ECO
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldBeAbleToCreateAnECO() {
+        public void Admin_ShouldBeAbleToCreateAnECO()
+        {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
@@ -46,15 +49,16 @@ namespace ArasTests.AdminTests.ECO
             eco = eco.apply();
 
             // Assert
-            AssertItem(eco).IsNotError();
-            
+            AssertItem.IsNotError(eco);
+
         }
 
         [Fact]
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldNotBeAbleToCreateAnECO_WhenTitleIsNotSet() {
+        public void Admin_ShouldNotBeAbleToCreateAnECO_WhenTitleIsNotSet()
+        {
             // Arrange/Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
@@ -62,8 +66,8 @@ namespace ArasTests.AdminTests.ECO
             eco = eco.apply();
 
             // Assert
-            AssertItem(eco).IsError();
+            AssertItem.IsError(eco);
         }
-        
+
     }
 }

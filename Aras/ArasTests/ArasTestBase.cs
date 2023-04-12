@@ -19,16 +19,10 @@ namespace ArasTests
             AdminInn = fixture.GetAdminInn();
         }
 
-        protected AssertItem AssertItem(Item item) {
-            return new AssertItem(item);
-        }
+        public const string TEST_NAME = Common.Generators.TEST_NAME;
 
-        protected const string TEST_NAME = "AutoTest";
-
-        protected static string GetNewId(int length = 8) {
-            string id = Guid.NewGuid().ToString();
-            if (length > 32) return id;
-            return id.Substring(0,length);
+        public static string GetNewId() {
+            return Common.Generators.GetNewId();
         }
        
     }

@@ -10,17 +10,14 @@ namespace ArasTests
 {
     public class AssertItem
     {
-        private Item item;
-
-        public AssertItem(Item item) {
-            this.item = item;
-        }
-
-        internal void IsNotError() {
+        
+        internal static void IsNotError(Item item) {
+            Assert.NotNull(item);
             Assert.False(item.isError(), item.getErrorString());
         }
 
-        internal void IsError() {
+        internal static void IsError(Item item) {
+            Assert.NotNull(item);
             Assert.True(item.isError(), $"Expected error item. DOM: {item.dom.InnerXml}");
         }
     }
