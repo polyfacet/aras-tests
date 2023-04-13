@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ArasTests.Common.Aras;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace ArasTests.Setup.Impl {
-    internal partial class TestFixtureParameterLoader : IConnectionParameterLoader
+    internal partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
     {
         private const string CONFIG_FILE_NAME = "TestFixtureConfig.xml";
         private string Url = "http://localhost/innovator";
@@ -71,6 +73,39 @@ namespace ArasTests.Setup.Impl {
                 labels.Add(label);
             }
             return labels;
+        }
+
+        public NewUserDTO GetNewUserDTO(string username) {
+            string xPath = $"//User[@label='{username}']";
+            XmlNode userNode = XmlDoc.SelectSingleNode(xPath)
+                ?? throw new TestFixtureConfigException("Could not find node with xpath:" + xPath);
+
+            var firstNameNode = userNode.Attributes?.GetNamedItem("firstName")
+                    ?? throw new TestFixtureConfigException("firstName not found for: " + userNode.InnerText);
+            string firstName = firstNameNode.InnerText;
+
+            var lastNameNode = userNode.Attributes?.GetNamedItem("lastName")
+                    ?? throw new TestFixtureConfigException("lastName not found for: " + userNode.InnerText);
+            string lastName = lastNameNode.InnerText;
+
+            var loginNode = userNode.SelectSingleNode("Login")
+                ?? throw new TestFixtureConfigException("Could not find Login for xpath: " + xPath);
+            string loginName = loginNode.InnerText;
+            var passwordNode = userNode.SelectSingleNode("Password")
+                ?? throw new TestFixtureConfigException("Could not find Password for xpath: " + xPath);
+            string password = passwordNode.InnerText;
+
+            List<string> memberOfList = new List<string>();
+            XmlNodeList? memberOfNodes = userNode.SelectNodes("MemberOf");
+            if (memberOfNodes != null)
+                foreach (XmlNode membeOfNode in memberOfNodes)
+                    memberOfList.Add(membeOfNode.InnerText);
+
+            NewUserDTO newUserDTO = new NewUserDTO(
+                loginName, password, firstName, lastName, memberOfList);
+            return newUserDTO;
+
+            throw new TestFixtureConfigException("Could not find config for New User: " + username);
         }
 
         private class ConfigUser {

@@ -1,9 +1,11 @@
 ﻿using ArasTests.Common.Aras;
+using ArasTests.Setup.Impl;
 using Innovator.Client.IOM;
 using Innovator.Client.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using Xunit;
 
 namespace ArasTests.Setup
@@ -12,31 +14,37 @@ namespace ArasTests.Setup
     {
         //public Connection Connection;
         private readonly List<UserSession> UserSessions = new();
+        private const string ADMIN = "admin";
         
 
         public ArasCollectionFixture()
         {
             foreach (ConnectionParameters param in ConnectionParameters.GetConnectionParametersList()) {
-                var connection = Connection.CreateInstance(param.Url, param.DBName, param.LoginName, param.Password);
-                UserSessions.Add(new UserSession(param.Name, connection.Inn));
-
-
-                // TODO: Refactor
-                Users users = new Users(GetAdminInn());
-                if (!users.UserExists("Batman")) {
-                    Item cmUser = users.CreateNewUser("Batman", "test", "Bruce", "Wayne");
-                    users.AddUserAsMember(cmUser, "World");
-                    users.AddUserAsMember(cmUser, "All Employees");
-                    users.AddUserAsMember(cmUser, "CM");
+                string label = param.Label;
+                string loginName = param.LoginName;
+                if (label != ADMIN) {
+                    CreateNewUserIfNotAlreadyExists(label, loginName);
                 }
-                var connCM = Connection.CreateInstance(param.Url, param.DBName, "Batman", "test");
-                UserSessions.Add(new UserSession("CM", connCM.Inn));
+                var connection = Connection.CreateInstance(
+                        param.Url, param.DBName, loginName, param.Password);
+                UserSessions.Add(new UserSession(param.Label, connection.Inn));
             }
-           
+        }
+
+        private void CreateNewUserIfNotAlreadyExists(string label, string loginName) {
+            NewUserDTO newUser = ConnectionFactory.NewUserDTOLoader().GetNewUserDTO(label);
+            Users users = new Users(GetAdminInn());
+            if (!users.UserExists(loginName)) {
+                Item newArasUser = users.CreateNewUser(
+                    newUser.LoginName, newUser.Password, newUser.FirstName, newUser.LastName);
+                foreach (var memberOf in newUser.MemberOfIdentities) {
+                    users.AddUserAsMember(newArasUser, memberOf);
+                }
+            }
         }
 
         public Innovator.Client.IOM.Innovator GetAdminInn() {
-            return GetInnovatorBySessionName("admin");
+            return GetInnovatorBySessionName(ADMIN);
         }
 
 

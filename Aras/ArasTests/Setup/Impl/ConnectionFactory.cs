@@ -11,5 +11,9 @@ namespace ArasTests.Setup.Impl
         internal static IConnectionParametersListLoader GetConnectionParametersListLoader() {
             return new TestFixtureConfigSessionLoader();
         }
+
+        internal static INewUserDTO NewUserDTOLoader() {
+            return new TestFixtureParameterLoader();
+        }
     }
 }
