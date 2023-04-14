@@ -142,5 +142,39 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
             AssertItem.IsError(result);
         }
 
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Business", "OOTB")]
+        public void CM_ShouldNotBeAbleToEditPart_WhenReleased() {
+            // Arrange
+            Arrange arrange = new Arrange(CMInn);
+            Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
+
+            // Act
+            part.setAction("edit");
+            part.setProperty("css", "red");
+            Item result = part.apply();
+
+            // Assert
+            AssertItem.IsError(result);
+        }
+
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Business", "OOTB")]
+        public void CM_ShouldBeAbleToCreateNewRevisionOfPart_WhenReleased() {
+            // Arrange
+            Arrange arrange = new Arrange(CMInn);
+            Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
+
+            // Act
+            Item newRevision = part.apply("PE_CreateNewRevision");
+
+            // Assert
+            AssertItem.IsNotError(newRevision);
+            string expectedRevision = "B";
+            Assert.Equal(expectedRevision, newRevision.getProperty("major_rev"));
+        }
+
     }
 }
