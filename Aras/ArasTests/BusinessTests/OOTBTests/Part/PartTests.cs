@@ -83,5 +83,68 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
             AssertItem.IsNotError(part);
         }
 
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Business", "OOTB")]
+        public void CM_ShouldBeAbleToDeletePart_WhenNew() {
+            // Arrange
+            Arrange arrange = new Arrange(CMInn);
+            Item part = arrange.CreateDefault(ITEM_TYPE);
+
+            // Act
+            Item result = part.apply("delete");
+
+            // Assert
+            AssertItem.IsNotError(result);
+
+        }
+
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Business", "OOTB")]
+        public void CM_ShouldNotBeAbleToDeletePart_WhenReleased() {
+            // Arrange
+            Arrange arrange = new Arrange(CMInn);
+            Item part = arrange.CreateDefault(ITEM_TYPE);
+            arrange.Run(() =>
+            {
+                Item releaseResult = part.apply("PE_ManualRelease");
+            });
+
+            // Act
+            Item result = part.apply("delete");
+
+            // Assert
+            AssertItem.IsError(result);
+        }
+
+        [Fact]
+        [Trait("Domain", "Part")]
+        [Trait("Business", "OOTB")]
+        public void User_ShouldNotBeAbleToEditPart_WhenLockedByAnotherUser() {
+            // Arrange
+            Arrange arrange = new Arrange(AdminInn);
+            Item part = arrange.CreateDefault(ITEM_TYPE);
+            Item lockedPart = CMInn.newError("Temp");
+            arrange.Run(() =>
+            {
+                part.apply("lock");
+                string id = part.getID();
+                lockedPart = CMInn.newItem(ITEM_TYPE, "get");
+                lockedPart.setAttribute("select", "id");
+                lockedPart.setID(id);
+                lockedPart = lockedPart.apply();
+            });
+
+
+            // Act
+            lockedPart.setAction("edit");
+            lockedPart.setProperty("css", "red");
+            Item result = lockedPart.apply();
+
+            // Assert
+            AssertItem.IsError(result);
+        }
+
     }
 }
