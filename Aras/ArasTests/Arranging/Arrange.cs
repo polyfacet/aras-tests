@@ -28,6 +28,10 @@ namespace ArasTests.Arranging
             return item;
         }
 
+        internal void Run(Action action) {
+            ArrangeWrapper.Run(action);
+        }
+
         private IDefaultCreateAble GetImplementation(string itemType) {
             if (itemType == "Part") return new Models.OOTB.Part();
             throw new NotImplementedException($"No implementation found for: {itemType}");
