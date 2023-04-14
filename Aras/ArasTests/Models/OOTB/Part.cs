@@ -8,10 +8,11 @@ namespace ArasTests.Models.OOTB {
     internal class Part : 
         ICreateNew, 
         ICreateApproved {
-        
+
+        private const string ITEM_TYPE = "Part";
 
         public Item CreateNew(Innovator.Client.IOM.Innovator inn) {
-            Item part = inn.newItem("Part", "add");
+            Item part = inn.newItem(ITEM_TYPE, "add");
             string itemNumber = Generators.GetNewId();;
             part.setProperty("item_number", itemNumber);
             part.setProperty("name", ArasTestBase.TEST_NAME);
@@ -22,8 +23,10 @@ namespace ArasTests.Models.OOTB {
 
         public Item CreateApproved(Innovator.Client.IOM.Innovator inn) {
             Item part = CreateNew(inn);
+            string configId = part.getProperty("config_id");
             Item result = part.apply("PE_ManualRelease");
             if (result.isError()) throw new Exception(result.getErrorString());
+            part = InnovatorBase.GetItemByConfigId(inn, ITEM_TYPE, configId);
             return part;
         }
     }

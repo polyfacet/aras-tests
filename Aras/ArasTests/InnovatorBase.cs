@@ -35,5 +35,12 @@ namespace ArasTests
             user = user.apply();
             return user.getPropertyItem("owned_by_id");
         }
+
+        public static Item GetItemByConfigId(Innovator.Client.IOM.Innovator inn, string itemType, string configId) {
+            Item item = inn.newItem(itemType, "get");
+            item.setProperty("config_id", configId);
+            item = item.apply();
+            return item;
+        }
     }
 }
