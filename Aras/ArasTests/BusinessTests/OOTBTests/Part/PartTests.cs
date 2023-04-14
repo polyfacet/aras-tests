@@ -74,7 +74,7 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
             // Arrange
             Arrange arrange = new Arrange(inn);
-            Item part = arrange.CreateDefault("Part");
+            Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
             part = part.apply("PE_ManualRelease");
