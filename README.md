@@ -17,7 +17,14 @@ Project elaborating on tests in the context of Aras Innovator
 
 ## Aras General Integration XUnit Tests
 
-The integration tests are using [XUnit](https://xunit.net) as the testing framework. Some functionality has been added to simplify writing tests and make them more maintainable.
+The integration tests are using [XUnit](https://xunit.net) as the testing framework. There are several reasons for that:
+
+- Well documented
+- It is popular
+- It is created by the creator of NUnit, as an successor of that.
+- It runs test in parallel by default, which makes the tests run faster. Which is of high importance
+
+Some functionality has been added to simplify writing tests and make them more maintainable.
 Innovator.Client a 3rd party [innovator client](https://github.com/erdomke/Innovator.Client) - which replicates the IOM api is used. It has some benefits over the IOM(s) provided from Aras.
 
 - You don't need the SDK IOM for as specific Aras version
