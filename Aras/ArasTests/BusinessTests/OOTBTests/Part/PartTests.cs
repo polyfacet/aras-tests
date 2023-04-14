@@ -77,10 +77,10 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
-            part = part.apply("PE_ManualRelease");
+            Item result = part.apply("PE_ManualRelease");
 
             // Assert
-            AssertItem.IsNotError(part);
+            AssertItem.IsNotError(result);
         }
 
         [Fact]

@@ -9,7 +9,7 @@ Project elaborating on tests in the context of Aras Innovator
     - [Arranging](#arranging)
       - [Use case example](#use-case-example)
     - [Extended Assertions](#extended-assertions)
-    - [Test Example](#test-example)
+    - [Test Example {#test-example}](#test-example-test-example)
     - [References](#references)
   - [Playwright for .NET](#playwright-for-net)
   - [Stryker](#stryker)
@@ -79,7 +79,7 @@ Failed tests due to errors in the arrange phase is in my experience the most com
 
 #### Use case example
 
-As a simple example to make the problem more concrete. If we change the criteria for creating a Part, that it must have a classification. Many test relying on creating a Part in their Arrange section will fail. In that case we ideally only want to change this Arrange-error at one place. See test example further down.
+As a simple example to make the problem more concrete. If we change the criteria for creating a Part, that it must have a classification. Many test relying on creating a Part in their Arrange section will fail. In that case we ideally only want to change this Arrange-error at one place. See [test example](#test-example) further down.
 
 ### Extended Assertions
 
@@ -91,7 +91,7 @@ To make these assertions more convenient the following assertions has been added
 
 **Note:** Innovator.Client actually has some assertion built in/extensions to the Item, like item.AssertNoError(). But it does not have the IsError assertion. And as you might want add more custom assertions and have separation of concerns (SoC), this projects assertion library is to prefer. And for now the Innovator.Client is quite easy to replace with an SDK IOM from Aras.
 
-### Test Example
+### Test Example {#test-example}
 
 Here we show an example of how to use the above addition to write tests.
 We will have some PartTests on OOTB - which means we will have access to an admin and cm session.
@@ -136,11 +136,11 @@ public class PartTests : OOTBTest
         Item part = arrange.CreateDefault(ITEM_TYPE);
 
         // Act
-        part = part.apply("PE_ManualRelease");
+        Item result = part.apply("PE_ManualRelease");
 
         // Assert
         // We use the AssertItem class to have a simple/clean assertion
-        AssertItem.IsNotError(part);
+        AssertItem.IsNotError(result);
     }
 }
 
@@ -148,9 +148,15 @@ public class PartTests : OOTBTest
 
 ### References
 
-1. XUnit : https://xunit.net
+1. XUnit : <https://xunit.net>
 2. [Organizing xunit tests with traits](https://www.brendanconnolly.net/organizing-tests-with-xunit-traits/)
 
 ## Playwright for .NET
 
+End to end testing with [Playwright](https://playwright.dev/dotnet/) in Aras Innovator
+**TBD**
+
 ## Stryker
+
+Test your tests with [Stryker Mutator](https://stryker-mutator.io)
+**TBD**
