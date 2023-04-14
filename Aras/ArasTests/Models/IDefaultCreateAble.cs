@@ -2,9 +2,8 @@
 
 namespace ArasTests.Models
 {
-    internal interface IDefaultCreateAble
+    internal interface ICreateApproved
     {
-
-        Item CreateDefault(Innovator.Client.IOM.Innovator inn);
+        Item CreateApproved(Innovator.Client.IOM.Innovator inn);
     }
 }

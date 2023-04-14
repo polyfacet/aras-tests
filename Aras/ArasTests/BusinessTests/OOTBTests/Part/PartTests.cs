@@ -105,11 +105,7 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         public void CM_ShouldNotBeAbleToDeletePart_WhenReleased() {
             // Arrange
             Arrange arrange = new Arrange(CMInn);
-            Item part = arrange.CreateDefault(ITEM_TYPE);
-            arrange.Run(() =>
-            {
-                Item releaseResult = part.apply("PE_ManualRelease");
-            });
+            Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
             Item result = part.apply("delete");

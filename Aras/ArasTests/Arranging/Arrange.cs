@@ -20,8 +20,20 @@ namespace ArasTests.Arranging
             Item? item = null;
             ArrangeWrapper.Run(() =>
             {
-                IDefaultCreateAble creator = GetImplementation(itemType);
-                item = creator.CreateDefault(Inn);
+                ICreateNew creator = GetCreateNewImplementation(itemType);
+                item = creator.CreateNew(Inn);
+                AssertItem.IsNotError(item);
+            });
+            if (item == null) { throw new ArrangeException(); }
+            return item;
+        }
+
+        internal Item CreateDefaultApproved(string itemType) {
+            Item? item = null;
+            ArrangeWrapper.Run(() =>
+            {
+                ICreateApproved creator = GetCreateApprovedImplementation(itemType);
+                item = creator.CreateApproved(Inn);
                 AssertItem.IsNotError(item);
             });
             if (item == null) { throw new ArrangeException(); }
@@ -32,7 +44,12 @@ namespace ArasTests.Arranging
             ArrangeWrapper.Run(action);
         }
 
-        private IDefaultCreateAble GetImplementation(string itemType) {
+        private ICreateNew GetCreateNewImplementation(string itemType) {
+            if (itemType == "Part") return new Models.OOTB.Part();
+            throw new NotImplementedException($"No implementation found for: {itemType}");
+        }
+
+        private ICreateApproved GetCreateApprovedImplementation(string itemType) {
             if (itemType == "Part") return new Models.OOTB.Part();
             throw new NotImplementedException($"No implementation found for: {itemType}");
         }

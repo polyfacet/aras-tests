@@ -1,16 +1,29 @@
 ﻿using Innovator.Client.IOM;
 using ArasTests.Common;
 using ArasTests.Common.Aras;
+using System.Dynamic;
+using System;
 
 namespace ArasTests.Models.OOTB {
-    internal class Part : IDefaultCreateAble {
-        public Item CreateDefault(Innovator.Client.IOM.Innovator inn) {
+    internal class Part : 
+        ICreateNew, 
+        ICreateApproved {
+        
+
+        public Item CreateNew(Innovator.Client.IOM.Innovator inn) {
             Item part = inn.newItem("Part", "add");
             string itemNumber = Generators.GetNewId();;
             part.setProperty("item_number", itemNumber);
             part.setProperty("name", ArasTestBase.TEST_NAME);
             part.setProperty("owned_by_id", InnovatorBase.GetIdentity(inn).getID());
             part = part.apply();
+            return part;
+        }
+
+        public Item CreateApproved(Innovator.Client.IOM.Innovator inn) {
+            Item part = CreateNew(inn);
+            Item result = part.apply("PE_ManualRelease");
+            if (result.isError()) throw new Exception(result.getErrorString());
             return part;
         }
     }
