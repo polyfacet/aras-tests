@@ -3,6 +3,7 @@
 Project elaborating on tests in the context of Aras Innovator
 
 - [aras-tests](#aras-tests)
+  - [Background](#background)
   - [Aras General Integration XUnit Tests](#aras-general-integration-xunit-tests)
     - [Aras fixture](#aras-fixture)
       - [Example fixture configuration](#example-fixture-configuration)
@@ -16,6 +17,10 @@ Project elaborating on tests in the context of Aras Innovator
   - [Playwright for .NET](#playwright-for-net)
   - [Stryker](#stryker)
 
+## Background
+
+[Aras Innovator](https://www.aras.com) is a "low-code" open PLM platform from [Aras Corp. (Wikipedia)](https://en.wikipedia.org/wiki/Aras_Corp). The platform is built to be customized, which is done by configurations and by code - primarily .NET for backend and Javascript for frontend. Due to this nature, unit testing are rarely applied during customizations. Most common approach to testing is the old-school PLM-manual-testing. Integration tests may be a way to apply automated testing for the purpose to avoid regression bugs and IMO ideally way to implicitly have some complementary documentation of the application.
+With this background this project will focus on a integration tests for Aras. A framework for this will be the focus here.
 
 ## Aras General Integration XUnit Tests
 
