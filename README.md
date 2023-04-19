@@ -162,6 +162,7 @@ Complexity 1,2,3,4,5
 1. XUnit : <https://xunit.net>
 2. [Organizing xunit tests with traits](https://www.brendanconnolly.net/organizing-tests-with-xunit-traits/)
 3. [More on traits, how to run tests without a Trait](https://blog.somewhatabstract.com/2016/12/27/running-xunit-tests-using-traits-and-leveraging-parallelism/)
+4. [Extend xUnit Categories](https://github.com/brendanconnolly/Xunit.Categories)
 
 ## Playwright for .NET
 
