@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Environment>
+	<Url>http://localhost/2023</Url>
+	<DatabaseName>2023</DatabaseName>
+	<Users>
+		<User label="admin">
+			<Login>admin</Login>
+			<Password>innovator</Password>
+		</User>
+		<User label="CM" firstName="Bruce" lastName="Wayne">
+			<Login>Batman</Login>
+			<Password>test</Password>
+			<MemberOf>World</MemberOf>
+			<MemberOf>All Employees</MemberOf>
+			<MemberOf>CM</MemberOf>
+		</User>
+	</Users>
+</Environment>
