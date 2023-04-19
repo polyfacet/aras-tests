@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArasTests.Common {
+﻿
+namespace Aras.Core.Tests.Common {
     public class Generators {
 
         public const string TEST_NAME = "AutoTest";

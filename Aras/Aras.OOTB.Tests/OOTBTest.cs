@@ -1,10 +1,5 @@
 ﻿using Aras.OOTB.Tests.Fixture;
-using ArasTests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Aras.Core.Tests;
 using Xunit.Abstractions;
 
 namespace Aras.OOTB.Tests {

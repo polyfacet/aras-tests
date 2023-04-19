@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Aras.Core.Tests.Common.Aras;
+using Aras.Core.Tests.Setup.Impl;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ArasTests.Common.Aras;
-using ArasTests.Setup.Impl;
 
-namespace ArasTests.Setup
+
+namespace Aras.Core.Tests.Setup
 {
     internal class ConnectionParameters
     {

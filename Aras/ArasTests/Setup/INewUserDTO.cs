@@ -1,11 +1,6 @@
-﻿using ArasTests.Common.Aras;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aras.Core.Tests.Common.Aras;
 
-namespace ArasTests.Setup {
+namespace Aras.Core.Tests.Setup {
     internal interface INewUserDTO {
 
         NewUserDTO GetNewUserDTO(string label);

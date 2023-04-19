@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Innovator.Client.IOM;
+﻿using Innovator.Client.IOM;
 
-namespace ArasTests
-{
+namespace Aras.Core.Tests {
     internal class InnovatorBase
     {
         protected readonly Innovator.Client.IOM.Innovator Inn;

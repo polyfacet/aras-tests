@@ -1,14 +1,7 @@
-﻿using ArasTests.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 using Innovator.Client.IOM;
-using ArasTests.Arranging;
-using ArasTests;
+using Aras.Core.Tests.Arranging;
+using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
 
 namespace Aras.OOTB.Tests.Part

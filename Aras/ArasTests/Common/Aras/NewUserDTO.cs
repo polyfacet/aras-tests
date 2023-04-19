@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace ArasTests.Common.Aras {
+namespace Aras.Core.Tests.Common.Aras {
     internal class NewUserDTO {
 
         public readonly string LoginName;

@@ -1,4 +1,4 @@
-﻿namespace ArasTests.Setup {
+﻿namespace Aras.Core.Tests.Setup {
     public class UserSession {
 
         public string Name { get; private set; }

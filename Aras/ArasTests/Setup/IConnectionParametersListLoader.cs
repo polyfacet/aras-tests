@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace ArasTests.Setup
+namespace Aras.Core.Tests.Setup
 {
     internal interface IConnectionParametersListLoader {
         public List<ConnectionParameters> GetConnectionParametersList();

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArasTests\ArasTests.csproj" />
+    <ProjectReference Include="..\ArasTests\Aras.Core.Tests.csproj" />
   </ItemGroup>
 
 </Project>

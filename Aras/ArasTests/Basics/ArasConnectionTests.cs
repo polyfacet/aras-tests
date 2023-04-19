@@ -1,10 +1,9 @@
-using ArasTests.Setup;
-using System;
+using Aras.Core.Tests.Setup;
 using Xunit;
 using Xunit.Abstractions;
-using ArasTests.Arranging;
+using Aras.Core.Tests.Arranging;
 
-namespace ArasTests.Basics
+namespace Aras.Core.Tests.Basics
 {
     public class ArasConnectionTests : ArasTestBase
     {

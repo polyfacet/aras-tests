@@ -1,11 +1,8 @@
-using System;
-using ArasTests.Setup;
-using Innovator.Client.IOM;
+using Aras.Core.Tests.Setup;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace ArasTests
-{
+namespace Aras.Core.Tests {
     [Collection("Aras setup")]
     public abstract class ArasTestBase
     {

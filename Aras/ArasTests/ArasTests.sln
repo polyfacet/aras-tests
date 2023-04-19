@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArasTests", "ArasTests.csproj", "{09230578-1597-4719-BF52-99EEB2A5C03B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aras.Core.Tests", "Aras.Core.Tests.csproj", "{09230578-1597-4719-BF52-99EEB2A5C03B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aras.OOTB.Tests", "..\Aras.OOTB.Tests\Aras.OOTB.Tests.csproj", "{7ED74B9E-B773-4AE1-A5BF-BD8A19D04A6D}"
 EndProject

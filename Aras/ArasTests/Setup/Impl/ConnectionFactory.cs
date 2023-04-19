@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArasTests.Setup.Impl
+﻿
+namespace Aras.Core.Tests.Setup.Impl
 {
     internal class ConnectionFactory
     {

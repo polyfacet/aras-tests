@@ -1,14 +1,9 @@
-﻿using ArasTests.Common.Aras;
-using ArasTests.Setup;
-using ArasTests.Setup.Impl;
+﻿using Aras.Core.Tests.Common.Aras;
+using Aras.Core.Tests.Setup;
+using Aras.Core.Tests.Setup.Impl;
 using Innovator.Client.IOM;
 using Innovator.Client.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using Xunit;
-
 namespace Aras.OOTB.Tests.Fixture
 {
 

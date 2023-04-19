@@ -1,13 +1,6 @@
 ﻿using Innovator.Client.IOM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ArasTests.Common.Aras {
+namespace Aras.Core.Tests.Common.Aras {
     internal class Users : InnovatorBase {
         public Users(Innovator.Client.IOM.Innovator inn) : base(inn) {
         }

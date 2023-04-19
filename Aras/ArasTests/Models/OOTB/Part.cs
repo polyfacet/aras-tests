@@ -1,8 +1,6 @@
 ﻿using Innovator.Client.IOM;
-using ArasTests.Common;
-using ArasTests.Common.Aras;
-using System.Dynamic;
-using System;
+using Aras.Core.Tests.Common;
+using Aras.Core.Tests;
 
 namespace ArasTests.Models.OOTB {
     internal class Part : 

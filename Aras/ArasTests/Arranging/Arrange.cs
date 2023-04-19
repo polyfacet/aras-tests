@@ -1,13 +1,7 @@
 ﻿using ArasTests.Models;
 using Innovator.Client.IOM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
-namespace ArasTests.Arranging
+namespace Aras.Core.Tests.Arranging
 {
     public class Arrange {
         private Innovator.Client.IOM.Innovator Inn;
@@ -45,12 +39,12 @@ namespace ArasTests.Arranging
         }
 
         private ICreateNew GetCreateNewImplementation(string itemType) {
-            if (itemType == "Part") return new Models.OOTB.Part();
+            if (itemType == "Part") return new ArasTests.Models.OOTB.Part();
             throw new NotImplementedException($"No implementation found for: {itemType}");
         }
 
         private ICreateApproved GetCreateApprovedImplementation(string itemType) {
-            if (itemType == "Part") return new Models.OOTB.Part();
+            if (itemType == "Part") return new ArasTests.Models.OOTB.Part();
             throw new NotImplementedException($"No implementation found for: {itemType}");
         }
     }

@@ -1,12 +1,6 @@
-﻿using Innovator.Client.Model;
-using Innovator.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Innovator.Client;
 
-namespace ArasTests.Setup
+namespace Aras.Core.Tests.Setup
 {
     public class Connection
     {

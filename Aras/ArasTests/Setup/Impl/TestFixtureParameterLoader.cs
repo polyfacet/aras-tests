@@ -1,17 +1,9 @@
-﻿using ArasTests.Common.Aras;
-using System;
+﻿using Aras.Core.Tests.Common.Aras;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
-namespace ArasTests.Setup.Impl {
+namespace Aras.Core.Tests.Setup.Impl {
     internal partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
     {
         private const string CONFIG_FILE_NAME = "TestFixtureConfig.xml";
