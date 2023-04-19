@@ -88,8 +88,9 @@ As a simple example to make the problem more concrete. If we change the criteria
 Often we want to assert that a result of an action (Act) does not return an "isError", or that it should return an "isError".
 To make these assertions more convenient the following assertions has been added:
 
-- Assert.IsError(item)
-- Assert.IsNotError(item)
+- AssertItem.IsError(item)
+- AssertItem.IsNotError(item)
+- AssertItem.IsInState(item, expectedState)
 
 **Note:** Innovator.Client actually has some assertion built in/extensions to the Item, like item.AssertNoError(). But it does not have the IsError assertion. And as you might want add more custom assertions and have separation of concerns (SoC), this projects assertion library is to prefer. And for now the Innovator.Client is quite easy to replace with an SDK IOM from Aras.
 
@@ -116,12 +117,12 @@ public class PartTests : OOTBTest
     [InlineData("CM")]
     [Trait("Domain", "Part")]
     [Trait("Part", "Release")]
-    private void Users_ShouldBeAbleToManuallyReleasePart(string user) {
+    private void Users_Should_Be_Able_To_Manually_Release_Part(string user) {
         Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
         User_ShouldBeAbleToManuallyReleasePart(inn);
     }
 
-    private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
+    private void User_Should_Be_Able_To_Manually_Release_Part(Innovator.Client.IOM.Innovator inn) {
         // Arrange
         // We use the Arrange class to make use of a common way to create a default item of specified item type
         // Within OOTBTest an IArasArranger (Implementations of CreateDefault etc.) is defined and injected to the Arrange constructor
