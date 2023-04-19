@@ -165,6 +165,7 @@ Complexity 1,2,3,4,5
 3. [More on traits, how to run tests without a Trait](https://blog.somewhatabstract.com/2016/12/27/running-xunit-tests-using-traits-and-leveraging-parallelism/)
 4. [Extend xUnit Categories](https://github.com/brendanconnolly/Xunit.Categories)
 5. [About Test Naming conventions](https://enterprisecraftsmanship.com/posts/you-naming-tests-wrong/)
+6. [Unit testing best practices (Microsoft)](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
 
 ## Playwright for .NET
 
