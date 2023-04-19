@@ -10,6 +10,8 @@ Project elaborating on tests in the context of Aras Innovator
       - [Use case example](#use-case-example)
     - [Extended Assertions](#extended-assertions)
     - [Test Example {#test-example}](#test-example-test-example)
+    - [Traits](#traits)
+      - [Suggested usage of Traits](#suggested-usage-of-traits)
     - [References](#references)
   - [Playwright for .NET](#playwright-for-net)
   - [Stryker](#stryker)
@@ -83,7 +85,7 @@ As a simple example to make the problem more concrete. If we change the criteria
 
 ### Extended Assertions
 
-Often we want to assert that a result of an action (Act) does not return an "isError", or that it should return an "isError". 
+Often we want to assert that a result of an action (Act) does not return an "isError", or that it should return an "isError".
 To make these assertions more convenient the following assertions has been added:
 
 - Assert.IsError(item)
@@ -98,10 +100,7 @@ We will have some PartTests on OOTB - which means we will have access to an admi
 We will have two tests checking if a user can manually release a part they have created.
 It is basically the same test, but with two different users/sessions used.
 
-**Note:** We have some added Traits to test ([About test filters](https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md))
-These could be used to e.g. run different sub sets of the tests in the solution.
-For example the test solution could be used to run smoke test in a production environment, which can be convenient/reassuring when updating such.
-([Organizing xunit tests with traits](https://www.brendanconnolly.net/organizing-tests-with-xunit-traits/))
+**Note:**: The tests - attributed with Fact for XUnit - has also been attributed with Traits. See: [Traits](#traits)
 
 ``` csharp
 public class PartTests : OOTBTest
@@ -145,6 +144,24 @@ public class PartTests : OOTBTest
 }
 
 ```
+
+### Traits
+
+We have some added Traits to test above ([About test filters](https://github.com/Microsoft/vstest-docs/blob/main/docs/filter.md))
+These could be used to e.g. run different sub sets of the tests in the solution.
+For example the test solution could be used to run smoke test in a production environment, which can be convenient/reassuring when updating such.
+([Organizing xunit tests with traits](https://www.brendanconnolly.net/organizing-tests-with-xunit-traits/))
+
+#### Suggested usage of Traits
+
+As the application develops test gradually gets more an more complex. From beginning, handling basic things like Create/Read/Update/Delete (CRUD) tests. After a while more complex test may be added like: ReleaseNewPart-WithNewRelated-DocumentVia-ECO, which may involve creation of multiple different item (Part/Document/ECO) at the arrange phase, as well as assignments in the ECO, which may require more session-users for the test. I.e. an initiator and one or more approvers - people to sign off.
+
+By grading the complexity of the test it is both possible to run the tests by their traits, i.e. only run the basic tests to run when doing everyday development. As the complex tests, may be more time consuming. On the day to day work we want fast feedback.
+And it would be possible to run the more complex test less frequently.
+We would also get a better overview with these traits, to see how many tests we have of a specific complexity, or easily find our test that are more complex.
+
+Example of complexity traits:
+Complexity 1,2,3,4,5
 
 ### References
 
