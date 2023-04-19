@@ -9,7 +9,7 @@ Project elaborating on tests in the context of Aras Innovator
     - [Arranging](#arranging)
       - [Use case example](#use-case-example)
     - [Extended Assertions](#extended-assertions)
-    - [Test Example {#test-example}](#test-example-test-example)
+    - [Test Example](#test-example)
     - [Traits](#traits)
       - [Suggested usage of Traits](#suggested-usage-of-traits)
     - [References and further reading](#references-and-further-reading)
@@ -94,7 +94,7 @@ To make these assertions more convenient the following assertions has been added
 
 **Note:** Innovator.Client actually has some assertion built in/extensions to the Item, like item.AssertNoError(). But it does not have the IsError assertion. And as you might want add more custom assertions and have separation of concerns (SoC), this projects assertion library is to prefer. And for now the Innovator.Client is quite easy to replace with an SDK IOM from Aras.
 
-### Test Example {#test-example}
+### Test Example
 
 Here we show an example of how to use the above addition to write tests.
 We will have some PartTests on OOTB - which means we will have access to an admin and cm session.
