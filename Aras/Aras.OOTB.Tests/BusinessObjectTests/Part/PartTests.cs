@@ -3,6 +3,7 @@ using Innovator.Client.IOM;
 using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
+using Aras.Core.Tests.Setup;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 {
@@ -48,20 +49,14 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 
         }
 
-        [Fact]
+        [Theory]
+        [InlineData("admin")]
+        [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        public void Admin_ShouldBeAbleToManuallyReleasePart()
-        {
-            User_ShouldBeAbleToManuallyReleasePart(AdminInn);
-        }
-
-        [Fact]
-        [Trait("Domain", "Part")]
-        [Trait("Part", "Release")]
-        public void CM_ShouldBeAbleToManuallyReleasePart()
-        {
-            User_ShouldBeAbleToManuallyReleasePart(CMInn);
+        private void Users_ShouldBeAbleToManuallyReleasePart(string user) {
+            Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
+            User_ShouldBeAbleToManuallyReleasePart(inn);
         }
 
         private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn)

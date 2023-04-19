@@ -98,7 +98,7 @@ To make these assertions more convenient the following assertions has been added
 Here we show an example of how to use the above addition to write tests.
 We will have some PartTests on OOTB - which means we will have access to an admin and cm session.
 We will have two tests checking if a user can manually release a part they have created.
-It is basically the same test, but with two different users/sessions used.
+It is basically the same test, but with two different users/sessions used. Accomplished by using the Theory and InlineData attributes.
 
 **Note:**: The tests - attributed with Fact for XUnit - has also been attributed with Traits. See: [Traits](#traits)
 
@@ -111,21 +111,14 @@ public class PartTests : OOTBTest
 
     private const string ITEM_TYPE = "Part";
 
-    [Fact]
+    [Theory]
+    [InlineData("admin")]
+    [InlineData("CM")]
     [Trait("Domain", "Part")]
     [Trait("Part", "Release")]
-    [Trait("Business", "OOTB")]
-    public void Admin_ShouldBeAbleToManuallyReleasePart()
-    {
-        User_ShouldBeAbleToManuallyReleasePart(AdminInn);
-    }
-
-    [Fact]
-    [Trait("Domain", "Part")]
-    [Trait("Part", "Release")]
-    [Trait("Business", "OOTB")]
-    public void CM_ShouldBeAbleToManuallyReleasePart() {
-        User_ShouldBeAbleToManuallyReleasePart(CMInn);
+    private void Users_ShouldBeAbleToManuallyReleasePart(string user) {
+        Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
+        User_ShouldBeAbleToManuallyReleasePart(inn);
     }
 
     private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
