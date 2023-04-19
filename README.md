@@ -12,7 +12,7 @@ Project elaborating on tests in the context of Aras Innovator
     - [Test Example {#test-example}](#test-example-test-example)
     - [Traits](#traits)
       - [Suggested usage of Traits](#suggested-usage-of-traits)
-    - [References](#references)
+    - [References and further reading](#references-and-further-reading)
   - [Playwright for .NET](#playwright-for-net)
   - [Stryker](#stryker)
 
@@ -157,12 +157,13 @@ We would also get a better overview with these traits, to see how many tests we 
 Example of complexity traits:
 Complexity 1,2,3,4,5
 
-### References
+### References and further reading
 
 1. XUnit : <https://xunit.net>
 2. [Organizing xunit tests with traits](https://www.brendanconnolly.net/organizing-tests-with-xunit-traits/)
 3. [More on traits, how to run tests without a Trait](https://blog.somewhatabstract.com/2016/12/27/running-xunit-tests-using-traits-and-leveraging-parallelism/)
 4. [Extend xUnit Categories](https://github.com/brendanconnolly/Xunit.Categories)
+5. [About Test Naming conventions](https://enterprisecraftsmanship.com/posts/you-naming-tests-wrong/)
 
 ## Playwright for .NET
 
