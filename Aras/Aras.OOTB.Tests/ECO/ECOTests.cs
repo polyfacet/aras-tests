@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using Innovator.Client.IOM;
+using ArasTests;
+using Aras.OOTB.Tests.Fixture;
 
-
-namespace ArasTests.BusinessTests.OOTBTests.ECO
+namespace Aras.OOTB.Tests.ECO
 {
 
     public class ECOTests : OOTBTest
     {
-        public ECOTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        public ECOTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
         }
 

@@ -30,8 +30,8 @@ namespace ArasTests.Basics
             Action arrange = () =>
             {
                 val = "Hepp";
-                int i = 0;
-                int j = 3;
+                //int i = 0;
+                //int j = 3;
                 //int k = j/i;
             };
             ArrangeWrapper.Run(arrange);

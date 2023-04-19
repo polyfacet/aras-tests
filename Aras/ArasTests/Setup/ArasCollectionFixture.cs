@@ -10,10 +10,10 @@ using Xunit;
 
 namespace ArasTests.Setup
 {
-    public class ArasCollectionFixture : IDisposable
+    public class ArasCollectionFixture : IArasFixture
     {
         //public Connection Connection;
-        private readonly List<UserSession> UserSessions = new();
+        public readonly List<UserSession> UserSessions = new();
         private const string ADMIN = "admin";
         
 

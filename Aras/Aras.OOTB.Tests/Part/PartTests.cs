@@ -8,13 +8,15 @@ using Xunit;
 using Xunit.Abstractions;
 using Innovator.Client.IOM;
 using ArasTests.Arranging;
+using ArasTests;
+using Aras.OOTB.Tests.Fixture;
 
-namespace ArasTests.BusinessTests.OOTBTests.Part
+namespace Aras.OOTB.Tests.Part
 {
-
+    
     public class PartTests : OOTBTest
     {
-        public PartTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        public PartTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
         }
 
@@ -38,7 +40,6 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Part", "Create")]
-        [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreatePart()
         {
             // Act
@@ -57,7 +58,6 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToManuallyReleasePart()
         {
             User_ShouldBeAbleToManuallyReleasePart(AdminInn);
@@ -66,7 +66,6 @@ namespace ArasTests.BusinessTests.OOTBTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        [Trait("Business", "OOTB")]
         public void CM_ShouldBeAbleToManuallyReleasePart() {
             User_ShouldBeAbleToManuallyReleasePart(CMInn);
         }

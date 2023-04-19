@@ -1,5 +1,5 @@
 ﻿namespace ArasTests.Setup {
-    internal class UserSession {
+    public class UserSession {
 
         public string Name { get; private set; }
         public Innovator.Client.IOM.Innovator Inn { get; private set; }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ArasTests.Common {
-    internal class Generators {
+    public class Generators {
 
         public const string TEST_NAME = "AutoTest";
         public static string GetNewId(int length = 8) {

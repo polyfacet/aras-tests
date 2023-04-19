@@ -9,14 +9,14 @@ using Xunit;
 
 namespace ArasTests.Arranging
 {
-    internal class Arrange {
+    public class Arrange {
         private Innovator.Client.IOM.Innovator Inn;
 
         public Arrange(Innovator.Client.IOM.Innovator inn) {
             this.Inn = inn;
         }
 
-        internal Item CreateDefault(string itemType) {
+        public Item CreateDefault(string itemType) {
             Item? item = null;
             ArrangeWrapper.Run(() =>
             {
@@ -28,7 +28,7 @@ namespace ArasTests.Arranging
             return item;
         }
 
-        internal Item CreateDefaultApproved(string itemType) {
+        public Item CreateDefaultApproved(string itemType) {
             Item? item = null;
             ArrangeWrapper.Run(() =>
             {
@@ -40,7 +40,7 @@ namespace ArasTests.Arranging
             return item;
         }
 
-        internal void Run(Action action) {
+        public void Run(Action action) {
             ArrangeWrapper.Run(action);
         }
 

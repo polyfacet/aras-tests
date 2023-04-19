@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using Innovator.Client.IOM;
+using Aras.OOTB.Tests.Fixture;
+using ArasTests;
 
-namespace ArasTests.BusinessTests.OOTBTests.Document
+namespace Aras.OOTB.Tests.Document
 {
     public class DocumentTests : OOTBTest
     {
-        public DocumentTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        public DocumentTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
         }
 
