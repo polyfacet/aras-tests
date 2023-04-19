@@ -3,7 +3,7 @@ using Innovator.Client.IOM;
 using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
 
-namespace Aras.OOTB.Tests.ECO
+namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
 
     public class ECOTests : OOTBTest

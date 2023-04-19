@@ -1,7 +1,7 @@
 ﻿using Innovator.Client.IOM;
 
 namespace Aras.Core.Tests {
-    internal class InnovatorBase
+    public class InnovatorBase
     {
         protected readonly Innovator.Client.IOM.Innovator Inn;
         public InnovatorBase(Innovator.Client.IOM.Innovator inn) {

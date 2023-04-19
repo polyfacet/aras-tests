@@ -1,13 +1,15 @@
-﻿using ArasTests.Models;
+﻿using Aras.Core.Tests.Models;
 using Innovator.Client.IOM;
 
 namespace Aras.Core.Tests.Arranging
 {
     public class Arrange {
         private Innovator.Client.IOM.Innovator Inn;
+        private IArasArranger Arranger;
 
-        public Arrange(Innovator.Client.IOM.Innovator inn) {
-            this.Inn = inn;
+        public Arrange(Innovator.Client.IOM.Innovator inn, IArasArranger arasArranger) {
+            Inn = inn;
+            Arranger = arasArranger;
         }
 
         public Item CreateDefault(string itemType) {
@@ -39,13 +41,15 @@ namespace Aras.Core.Tests.Arranging
         }
 
         private ICreateNew GetCreateNewImplementation(string itemType) {
-            if (itemType == "Part") return new ArasTests.Models.OOTB.Part();
-            throw new NotImplementedException($"No implementation found for: {itemType}");
+            ICreateNew? impl = Arranger.GetCreateNewImpl(itemType);
+            if (impl == null) throw new NotImplementedException($"No implementation found for: {itemType}");
+            return impl;
         }
 
         private ICreateApproved GetCreateApprovedImplementation(string itemType) {
-            if (itemType == "Part") return new ArasTests.Models.OOTB.Part();
-            throw new NotImplementedException($"No implementation found for: {itemType}");
+            ICreateApproved? impl = Arranger.GetApprovedImpl(itemType);
+            if (impl == null) throw new NotImplementedException($"No implementation found for: {itemType}");
+            return impl;
         }
     }
 }

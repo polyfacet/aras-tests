@@ -1,9 +1,10 @@
 ﻿using Innovator.Client.IOM;
 using Aras.Core.Tests.Common;
 using Aras.Core.Tests;
+using Aras.Core.Tests.Models;
 
-namespace ArasTests.Models.OOTB {
-    internal class Part : 
+namespace Aras.OOTB.Tests.Models {
+    internal class Part :
         ICreateNew, 
         ICreateApproved {
 

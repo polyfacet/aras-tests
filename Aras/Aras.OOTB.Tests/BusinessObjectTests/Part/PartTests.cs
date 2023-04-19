@@ -4,9 +4,9 @@ using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
 
-namespace Aras.OOTB.Tests.Part
+namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 {
-    
+
     public class PartTests : OOTBTest
     {
         public PartTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
@@ -59,13 +59,15 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        public void CM_ShouldBeAbleToManuallyReleasePart() {
+        public void CM_ShouldBeAbleToManuallyReleasePart()
+        {
             User_ShouldBeAbleToManuallyReleasePart(CMInn);
         }
 
-        private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
+        private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn)
+        {
             // Arrange
-            Arrange arrange = new Arrange(inn);
+            Arrange arrange = new Arrange(inn, Arranger);
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
@@ -78,9 +80,10 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldBeAbleToDeletePart_WhenNew() {
+        public void CM_ShouldBeAbleToDeletePart_WhenNew()
+        {
             // Arrange
-            Arrange arrange = new Arrange(CMInn);
+            Arrange arrange = new Arrange(CMInn, Arranger);
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
@@ -94,9 +97,10 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldNotBeAbleToDeletePart_WhenReleased() {
+        public void CM_ShouldNotBeAbleToDeletePart_WhenReleased()
+        {
             // Arrange
-            Arrange arrange = new Arrange(CMInn);
+            Arrange arrange = new Arrange(CMInn, Arranger);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
@@ -109,9 +113,10 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void User_ShouldNotBeAbleToEditPart_WhenLockedByAnotherUser() {
+        public void User_ShouldNotBeAbleToEditPart_WhenLockedByAnotherUser()
+        {
             // Arrange
-            Arrange arrange = new Arrange(AdminInn);
+            Arrange arrange = new Arrange(AdminInn, Arranger);
             Item part = arrange.CreateDefault(ITEM_TYPE);
             Item lockedPart = CMInn.newError("Temp");
             arrange.Run(() =>
@@ -137,9 +142,10 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldNotBeAbleToEditPart_WhenReleased() {
+        public void CM_ShouldNotBeAbleToEditPart_WhenReleased()
+        {
             // Arrange
-            Arrange arrange = new Arrange(CMInn);
+            Arrange arrange = new Arrange(CMInn, Arranger);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
@@ -154,9 +160,10 @@ namespace Aras.OOTB.Tests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldBeAbleToCreateNewRevisionOfPart_WhenReleased() {
+        public void CM_ShouldBeAbleToCreateNewRevisionOfPart_WhenReleased()
+        {
             // Arrange
-            Arrange arrange = new Arrange(CMInn);
+            Arrange arrange = new Arrange(CMInn, Arranger);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act

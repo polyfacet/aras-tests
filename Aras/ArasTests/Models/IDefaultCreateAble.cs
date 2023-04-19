@@ -1,8 +1,8 @@
 ﻿using Innovator.Client.IOM;
 
-namespace ArasTests.Models
+namespace Aras.Core.Tests.Models
 {
-    internal interface ICreateApproved
+    public interface ICreateApproved
     {
         Item CreateApproved(Innovator.Client.IOM.Innovator inn);
     }

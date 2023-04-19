@@ -3,7 +3,7 @@ using Innovator.Client.IOM;
 using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests;
 
-namespace Aras.OOTB.Tests.Document
+namespace Aras.OOTB.Tests.BusinessObjectTests.Document
 {
     public class DocumentTests : OOTBTest
     {
@@ -51,7 +51,8 @@ namespace Aras.OOTB.Tests.Document
         [Trait("Domain", "Documents")]
         [Trait("Document", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldNotBeAbleToCreateDocument_WithoutItemNumber() {
+        public void Admin_ShouldNotBeAbleToCreateDocument_WithoutItemNumber()
+        {
             // Act
             Item document = AdminInn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
