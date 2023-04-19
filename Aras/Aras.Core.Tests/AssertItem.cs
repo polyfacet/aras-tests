@@ -14,5 +14,11 @@ namespace Aras.Core.Tests {
             Assert.NotNull(item);
             Assert.True(item.isError(), $"Expected error item. DOM: {item.dom.InnerXml}");
         }
+
+        public static void IsInState(Item part, string expectedState) {
+            AssertItem.IsNotError(part);
+            string actualState = part.getProperty("state", "N/A");
+            Assert.Equal(expectedState, actualState);
+        }
     }
 }

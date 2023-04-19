@@ -3,7 +3,7 @@ using Innovator.Client.IOM;
 using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
-using Aras.Core.Tests.Setup;
+using Aras.Core.Tests.ArasExtensions;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 {
@@ -15,6 +15,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         private const string ITEM_TYPE = "Part";
+        private const string RELEASED = "Released";
 
         [Fact]
         [Trait("Category", "Core")]
@@ -54,12 +55,12 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        private void Users_ShouldBeAbleToManuallyReleasePart(string user) {
+        private void Users_Should_Be_Able_To_Manually_Release_Part(string user) {
             Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
-            User_ShouldBeAbleToManuallyReleasePart(inn);
+            User_Should_Be_Able_To_Manually_Release_Part(inn);
         }
 
-        private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn)
+        private void User_Should_Be_Able_To_Manually_Release_Part(Innovator.Client.IOM.Innovator inn)
         {
             // Arrange
             Arrange arrange = NewArrange(inn);
@@ -70,6 +71,9 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 
             // Assert
             AssertItem.IsNotError(result);
+            // Reload part after release
+            part = inn.getItemById(ITEM_TYPE, part.getID(), "state");
+            AssertItem.IsInState(part, RELEASED);
         }
 
         [Fact]
