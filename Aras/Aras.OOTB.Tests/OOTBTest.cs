@@ -1,7 +1,8 @@
-﻿using Aras.OOTB.Tests.Fixture;
-using Aras.Core.Tests;
-using Xunit.Abstractions;
+﻿using Aras.Core.Tests;
 using Aras.Core.Tests.Arranging;
+using Aras.OOTB.Tests.Fixture;
+using Xunit.Abstractions;
+
 
 namespace Aras.OOTB.Tests {
 
