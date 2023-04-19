@@ -131,7 +131,8 @@ public class PartTests : OOTBTest
     private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn) {
         // Arrange
         // We use the Arrange class to make use of a common way to create a default item of specified item type
-        Arrange arrange = new Arrange(inn);
+        // Within OOTBTest an IArasArranger (Implementations of CreateDefault etc.) is defined and injected to the Arrange constructor
+        Arrange arrange = NewArrange(inn);
         Item part = arrange.CreateDefault(ITEM_TYPE);
 
         // Act

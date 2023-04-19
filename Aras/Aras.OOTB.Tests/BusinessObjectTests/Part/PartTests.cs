@@ -67,7 +67,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         private void User_ShouldBeAbleToManuallyReleasePart(Innovator.Client.IOM.Innovator inn)
         {
             // Arrange
-            Arrange arrange = new Arrange(inn, Arranger);
+            Arrange arrange = NewArrange(inn);
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
@@ -83,7 +83,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         public void CM_ShouldBeAbleToDeletePart_WhenNew()
         {
             // Arrange
-            Arrange arrange = new Arrange(CMInn, Arranger);
+            Arrange arrange = NewArrange(CMInn);
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
@@ -100,7 +100,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         public void CM_ShouldNotBeAbleToDeletePart_WhenReleased()
         {
             // Arrange
-            Arrange arrange = new Arrange(CMInn, Arranger);
+            Arrange arrange = NewArrange(CMInn);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
@@ -116,7 +116,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         public void User_ShouldNotBeAbleToEditPart_WhenLockedByAnotherUser()
         {
             // Arrange
-            Arrange arrange = new Arrange(AdminInn, Arranger);
+            Arrange arrange = NewArrange(AdminInn);
             Item part = arrange.CreateDefault(ITEM_TYPE);
             Item lockedPart = CMInn.newError("Temp");
             arrange.Run(() =>
@@ -145,7 +145,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         public void CM_ShouldNotBeAbleToEditPart_WhenReleased()
         {
             // Arrange
-            Arrange arrange = new Arrange(CMInn, Arranger);
+            Arrange arrange = NewArrange(CMInn);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
@@ -163,7 +163,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         public void CM_ShouldBeAbleToCreateNewRevisionOfPart_WhenReleased()
         {
             // Arrange
-            Arrange arrange = new Arrange(CMInn, Arranger);
+            Arrange arrange = NewArrange(CMInn);
             Item part = arrange.CreateDefaultApproved(ITEM_TYPE);
 
             // Act
