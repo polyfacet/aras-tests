@@ -34,7 +34,7 @@ namespace ArasTests.BusinessTests.OOTBTests.Document
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", "Documents")]
         [Trait("Document", "Create")]
         [Trait("Business", "OOTB")]
         public void Admin_ShouldBeAbleToCreateDocument()
@@ -49,6 +49,21 @@ namespace ArasTests.BusinessTests.OOTBTests.Document
 
             // Assert
             AssertItem.IsNotError(document);
+
+        }
+
+        [Fact]
+        [Trait("Domain", "Documents")]
+        [Trait("Document", "Create")]
+        [Trait("Business", "OOTB")]
+        public void Admin_ShouldNotBeAbleToCreateDocument_WithoutItemNumber() {
+            // Act
+            Item document = AdminInn.newItem(ITEM_TYPE, "add");
+            string itemNumber = GetNewId();
+            document = document.apply();
+
+            // Assert
+            AssertItem.IsError(document);
 
         }
     }
