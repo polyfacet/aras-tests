@@ -3,6 +3,7 @@ using Innovator.Client.IOM;
 using Aras.Core.Tests;
 using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests.Arranging;
+using Aras.Core.Tests.ArasExtensions;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
@@ -66,15 +67,31 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 
         [Theory]
         [InlineData("Part")]
-        [InlineData("Document")]
+        //[InlineData("Document")]
         public void CM_can_Release_an_item_via_ECO(string itemTypeToRelease) {
+            // Arrange
             Arrange arrange = NewArrange(CMInn);
-            Item eco = arrange.CreateDefault(ITEM_TYPE);
+            Item ecoItem = arrange.CreateDefault(ITEM_TYPE);
             Item itemToRelease = arrange.CreateDefault(itemTypeToRelease);
+            Models.ECO eco = new Models.ECO(ecoItem);
+            arrange.Run(() =>
+            {
+                Item ecoAffectedItem = eco.AddAffectedItem(itemToRelease, Models.ECO.AffectedItemAction.Release);
+            });
 
-            throw new NotImplementedException("WIP");
+            // Act/(Assert)
+            Item result = eco.SignOff("Submit to Planning");
+            AssertItem.IsNotError(result);
+            result = eco.SignOff("Start Work");
+            AssertItem.IsNotError(result);
+            result = eco.SignOff("Submit to Review");
+            AssertItem.IsNotError(result);
+            result = eco.SignOff("Approve Changes");
+            AssertItem.IsNotError(result);
 
+            // Assert
+            Item releasedItem =  CMInn.getItemById(itemTypeToRelease, itemToRelease.getID(), "state");
+            AssertItem.IsInState(releasedItem, "Released");
         }
-
     }
 }

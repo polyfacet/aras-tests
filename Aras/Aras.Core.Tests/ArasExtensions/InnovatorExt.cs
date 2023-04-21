@@ -17,5 +17,15 @@ namespace Aras.Core.Tests.ArasExtensions {
             return item;
         }
 
+        public static Item GetIdentity(this Innovator.Client.IOM.Innovator inn) {
+            string userId = inn.getUserID();
+            string aml = $@"<AML>
+                <Item action='get' type='User' id='{inn.getUserID()}' select='owned_by_id' /> 
+                </AML>";
+            Item user = inn.applyAML(aml);
+            if (user.isError()) return user;
+            return inn.getItemById("Identity", user.getProperty("owned_by_id", "N/A"));
+        }
+
     }
 }
