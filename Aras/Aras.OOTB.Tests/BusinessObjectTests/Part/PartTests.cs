@@ -12,19 +12,29 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
     {
         public PartTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
+            Inn = AdminInn;
         }
 
         private const string ITEM_TYPE = "Part";
         private const string RELEASED = "Released";
 
-        [Fact]
-        [Trait("Category", "Core")]
+        protected Innovator.Client.IOM.Innovator Inn { get; private set; }
+        private void SetInn(string user) {
+            Inn = GetInnovatorBySessionName(user);
+        }
+
+        [Theory]
+        [InlineData("admin")]
+        [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("SmokeTest", "1")]
-        public void Admin_ShouldFindAPart()
+        public void User_Can_Find_A_Part(string user)
         {
+            // Arrange
+            SetInn(user);
+          
             // Act
-            Item part = AdminInn.newItem(ITEM_TYPE, "get");
+            Item part = Inn.newItem(ITEM_TYPE, "get");
             part.setAttribute("maxRecords", "1");
             part = part.apply();
 
@@ -32,13 +42,18 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
             Assert.False(part.isError());
         }
 
-        [Fact]
+        [Theory]
+        [InlineData("admin")]
+        [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("Part", "Create")]
-        public void Admin_ShouldBeAbleToCreatePart()
+        public void User_Can_Create_Part(string user)
         {
+            // Arrange
+            SetInn(user);
+          
             // Act
-            Item part = AdminInn.newItem(ITEM_TYPE, "add");
+            Item part = Inn.newItem(ITEM_TYPE, "add");
             string itemNumber = GetNewId();
             part.setProperty("item_number", itemNumber);
             part.setProperty("name", TEST_NAME);
@@ -55,12 +70,13 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("Part", "Release")]
-        private void Users_Should_Be_Able_To_Manually_Release_Part(string user) {
-            Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
-            User_Should_Be_Able_To_Manually_Release_Part(inn);
+        public void User_Can_Manually_Release_Part(string user) {
+            // Arrange
+            SetInn(user);
+            UserCan_Manually_Release_Part(Inn);
         }
 
-        private void User_Should_Be_Able_To_Manually_Release_Part(Innovator.Client.IOM.Innovator inn)
+        private void UserCan_Manually_Release_Part(Innovator.Client.IOM.Innovator inn)
         {
             // Arrange
             Arrange arrange = NewArrange(inn);
@@ -76,13 +92,16 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
             AssertItem.IsInState(part, RELEASED);
         }
 
-        [Fact]
+        [Theory]
+        [InlineData("admin")]
+        [InlineData("CM")]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldBeAbleToDeletePart_WhenNew()
+        public void User_Can_Delete_Their_New_Parts(string user)
         {
             // Arrange
-            Arrange arrange = NewArrange(CMInn);
+            SetInn(user);
+            Arrange arrange = NewArrange(Inn);
             Item part = arrange.CreateDefault(ITEM_TYPE);
 
             // Act
@@ -96,7 +115,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldNotBeAbleToDeletePart_WhenReleased()
+        public void CM_Can_NOT_Delete_a_Released_Part()
         {
             // Arrange
             Arrange arrange = NewArrange(CMInn);
@@ -112,7 +131,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void User_ShouldNotBeAbleToEditPart_WhenLockedByAnotherUser()
+        public void User_Can_NOT_Edit_Part_When_Locked_By_Another_User()
         {
             // Arrange
             Arrange arrange = NewArrange(AdminInn);
@@ -141,7 +160,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldNotBeAbleToEditPart_WhenReleased()
+        public void CM_Can_NOT_Edit_a_Released_Part()
         {
             // Arrange
             Arrange arrange = NewArrange(CMInn);
@@ -159,7 +178,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [Fact]
         [Trait("Domain", "Part")]
         [Trait("Business", "OOTB")]
-        public void CM_ShouldBeAbleToCreateNewRevisionOfPart_WhenReleased()
+        public void CM_Can_Create_New_Revision_Of_a_Released_Part()
         {
             // Arrange
             Arrange arrange = NewArrange(CMInn);

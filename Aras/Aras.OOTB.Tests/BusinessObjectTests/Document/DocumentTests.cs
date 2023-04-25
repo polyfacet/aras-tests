@@ -17,7 +17,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Document
         [Trait("Category", "Core")]
         [Trait("Domain", "Documents")]
         [Trait("SmokeTest", "1")]
-        public void Admin_ShouldFindADocument()
+        public void Admin_Can_Find_a_Document()
         {
             // Act
             Item document = AdminInn.newItem(ITEM_TYPE, "get");
@@ -32,7 +32,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Document
         [Trait("Domain", "Documents")]
         [Trait("Document", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldBeAbleToCreateDocument()
+        public void Admin_Can_Create_Document()
         {
             // Act
             Item document = AdminInn.newItem(ITEM_TYPE, "add");
@@ -51,7 +51,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Document
         [Trait("Domain", "Documents")]
         [Trait("Document", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldNotBeAbleToCreateDocument_WithoutItemNumber()
+        public void Admin_Can_NOT_Create_Document_Without_ItemNumber()
         {
             // Act
             Item document = AdminInn.newItem(ITEM_TYPE, "add");
