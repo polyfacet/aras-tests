@@ -1,3 +1,5 @@
+dotnet test .\Aras.OOTB.Tests\ --logger "console;verbosity=detailed"
+return 0
 # First run core test
 Write-Host -ForegroundColor Cyan "Running Business = OOTB Tests"
 dotnet test ArasTests --filter "Business=OOTB"
