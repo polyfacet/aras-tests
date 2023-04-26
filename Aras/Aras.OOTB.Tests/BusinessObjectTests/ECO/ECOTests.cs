@@ -7,11 +7,33 @@ using Aras.Core.Tests.ArasExtensions;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
-
-    public class ECOTests : OOTBTest
+    public class ECOFixture : Aras.Core.Tests.Setup.ArasCollectionFixture, IDisposable
     {
-        public ECOTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        
+        public ECOFixture()
         {
+            
+        }
+
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+    }
+
+
+
+    public class ECOTests : IClassFixture<ECOFixture>
+    {
+        ECOFixture fixture;
+        Innovator.Client.IOM.Innovator AdminInn;
+        Innovator.Client.IOM.Innovator CMInn;
+        OOTBArranger Arranger;
+        public ECOTests(ECOFixture fixture) {
+            this.fixture = fixture;
+            AdminInn = fixture.GetAdminInn();
+            CMInn = fixture.GetInnovatorBySessionName("CM");
+            Arranger = new OOTBArranger();
         }
 
         private const string ITEM_TYPE = "Express ECO";
@@ -39,9 +61,9 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
-            string itemNumber = GetNewId();
+            string itemNumber = ArasTestBase.GetNewId();
             eco.setProperty("item_number", itemNumber);
-            eco.setProperty("title", TEST_NAME);
+            eco.setProperty("title", ArasTestBase.TEST_NAME);
             eco = eco.apply();
 
             // Assert
@@ -57,7 +79,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         {
             // Arrange/Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
-            string itemNumber = GetNewId();
+            string itemNumber = ArasTestBase.GetNewId();
             eco.setProperty("item_number", itemNumber);
             eco = eco.apply();
 
@@ -92,6 +114,10 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
             // Assert
             Item releasedItem =  CMInn.getItemById(itemTypeToRelease, itemToRelease.getID(), "state");
             AssertItem.IsInState(releasedItem, "Released");
+        }
+
+        private Arrange NewArrange(Innovator.Client.IOM.Innovator inn) {
+            return new Arrange(inn, Arranger);
         }
     }
 }
