@@ -13,6 +13,9 @@ Project elaborating on tests in the context of Aras Innovator
     - [Test Example](#test-example)
     - [Traits](#traits)
       - [Suggested usage of Traits](#suggested-usage-of-traits)
+    - [Known issues](#known-issues)
+      - [Parallel running](#parallel-running)
+        - [Solution](#solution)
     - [References and further reading](#references-and-further-reading)
   - [Playwright for .NET](#playwright-for-net)
   - [Stryker](#stryker)
@@ -162,6 +165,34 @@ We would also get a better overview with these traits, to see how many tests we 
 
 Example of complexity traits:
 Complexity 1,2,3,4,5
+
+### Known issues
+
+#### Parallel running
+
+When running tests in parallel you can encounter "deadlock victim" issues, like below
+
+``` log
+ Aras.Core.Tests.Arranging.ArrangeException : Arrange exception:
+---- System.Exception : Transaction (Process ID 58) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+  Stack Trace:
+```
+
+This is something that end users also could encounter, when they are doing operations concurrently with other users.
+
+##### Solution
+
+Even though it is not recommended by "Aras", I think you should set the database in snapshot mode:
+
+``` sql
+ALTER DATABASE <db_name>
+SET READ_COMMITTED_SNAPSHOT ON
+GO
+```
+
+You could also avoid running the tests in parallel, but users will experience this in the wild anyway in that case.
+
+
 
 ### References and further reading
 
