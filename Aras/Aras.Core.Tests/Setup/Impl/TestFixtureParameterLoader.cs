@@ -6,7 +6,7 @@ using System.Xml;
 namespace Aras.Core.Tests.Setup.Impl {
     internal partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
     {
-        private const string CONFIG_FILE_NAME = "TestFixtureConfig.xml";
+        private const string CONFIG_FILE_NAME = "TestFixture.config";
         private string Url = "http://localhost/innovator";
         private string DBName = "InnovatorSolutions";
         private readonly XmlDocument XmlDoc;

@@ -10,9 +10,18 @@ namespace Aras.Core.Tests {
             Assert.False(item.isError(), item.getErrorString());
         }
 
-        public static void IsError(Item item) {
+        public static void IsNotError(Item item, string message) {
             Assert.NotNull(item);
-            Assert.True(item.isError(), $"Expected error item. DOM: {item.dom.InnerXml}");
+            Assert.False(item.isError(), message);
+        }
+
+        public static void IsError(Item item) {
+            IsError(item, $"Expected error item. DOM: {item.dom.InnerXml}");
+        }
+
+        public static void IsError(Item item, string message) {
+            Assert.NotNull(item);
+            Assert.True(item.isError(), message);
         }
 
         public static void IsInState(Item part, string expectedState) {
