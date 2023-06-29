@@ -41,7 +41,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Category", "Core")]
         [Trait("Domain", "ECO")]
         [Trait("SmokeTest", "1")]
-        public void Admin_ShouldFindAnECO()
+        public void Admin_can_find_ECO()
         {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "get");
@@ -56,7 +56,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldBeAbleToCreateAnECO()
+        public void Admin_can_create_ECO()
         {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
@@ -74,7 +74,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_ShouldNotBeAbleToCreateAnECO_WhenTitleIsNotSet()
+        public void Admin_can_NOT_create_ECO_without_a_Title()
         {
             // Arrange/Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
@@ -89,7 +89,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Theory]
         [InlineData("Part")]
         //[InlineData("Document")]
-        public void CM_Can_Release_an_Item_via_ECO(string itemTypeToRelease) {
+        public void CM_can_Release_an_Item_via_ECO(string itemTypeToRelease) {
             // Arrange
             Arrange arrange = NewArrange(CMInn);
             Item ecoItem = arrange.CreateDefault(ITEM_TYPE);

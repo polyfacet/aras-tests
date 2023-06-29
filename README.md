@@ -2,23 +2,22 @@
 
 Project elaborating on tests in the context of Aras Innovator
 
-- [aras-tests](#aras-tests)
-  - [Background](#background)
-  - [Aras General Integration XUnit Tests](#aras-general-integration-xunit-tests)
-    - [Aras fixture](#aras-fixture)
-      - [Example fixture configuration](#example-fixture-configuration)
-    - [Arranging](#arranging)
-      - [Use case example](#use-case-example)
-    - [Extended Assertions](#extended-assertions)
-    - [Test Example](#test-example)
-    - [Traits](#traits)
-      - [Suggested usage of Traits](#suggested-usage-of-traits)
-    - [Known issues](#known-issues)
-      - [Parallel running](#parallel-running)
-        - [Solution](#solution)
-    - [References and further reading](#references-and-further-reading)
-  - [Playwright for .NET](#playwright-for-net)
-  - [Stryker](#stryker)
+- [Background](#background)
+- [Aras General Integration XUnit Tests](#aras-general-integration-xunit-tests)
+  - [Aras fixture](#aras-fixture)
+    - [Example fixture configuration](#example-fixture-configuration)
+  - [Arranging](#arranging)
+    - [Use case example](#use-case-example)
+  - [Extended Assertions](#extended-assertions)
+  - [Test Example](#test-example)
+  - [Traits](#traits)
+    - [Suggested usage of Traits](#suggested-usage-of-traits)
+  - [Known issues](#known-issues)
+    - [Parallel running](#parallel-running)
+      - [Solution](#solution)
+  - [References and further reading](#references-and-further-reading)
+- [Playwright for .NET](#playwright-for-net)
+- [Stryker](#stryker)
 
 ## Background
 
@@ -125,12 +124,12 @@ public class PartTests : OOTBTest
     [InlineData("CM")]
     [Trait("Domain", "Part")]
     [Trait("Part", "Release")]
-    private void Users_Should_Be_Able_To_Manually_Release_Part(string user) {
+    private void Users_can_manually_Release_Part(string user) {
         Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
-        User_ShouldBeAbleToManuallyReleasePart(inn);
+        User_can_manually_Release_Part(inn);
     }
 
-    private void User_Should_Be_Able_To_Manually_Release_Part(Innovator.Client.IOM.Innovator inn) {
+    private void User_can_manually_Release_Part(Innovator.Client.IOM.Innovator inn) {
         // Arrange
         // We use the Arrange class to make use of a common way to create a default item of specified item type
         // Within OOTBTest an IArasArranger (Implementations of CreateDefault etc.) is defined and injected to the Arrange constructor
