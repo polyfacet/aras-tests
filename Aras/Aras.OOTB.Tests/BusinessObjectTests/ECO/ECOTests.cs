@@ -1,7 +1,8 @@
 ﻿using Xunit.Abstractions;
 using Innovator.Client.IOM;
 using Aras.Core.Tests;
-using Aras.OOTB.Tests.Fixture;
+using Aras.Core.Tests.Arranging;
+using Aras.Core.Tests.ArasExtensions;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
@@ -13,7 +14,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
             
         }
 
-        public void Dispose()
+        public new void Dispose()
         {
             //throw new NotImplementedException();
         }

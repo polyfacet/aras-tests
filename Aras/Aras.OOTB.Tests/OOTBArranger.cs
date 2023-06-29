@@ -10,6 +10,7 @@ namespace Aras.OOTB.Tests {
 
         public ICreateNew? GetCreateNewImpl(string itemType) {
             if (itemType == "Part") return new Models.Part();
+            if (itemType == "Express ECO") return new Models.ECOCreate();
             return null;
         }
     }
