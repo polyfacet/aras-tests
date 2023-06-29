@@ -185,9 +185,22 @@ Even though it is not recommended by "Aras", I think you should set the database
 
 ``` sql
 ALTER DATABASE <db_name>
+SET ALLOW_SNAPSHOT_ISOLATION ON 
+```
+
+``` sql
+ALTER DATABASE <db_name>
 SET READ_COMMITTED_SNAPSHOT ON
 GO
 ```
+
+With the query
+
+``` sql
+SELECT name, snapshot_isolation_state_desc, is_read_committed_snapshot_on from sys.databases 
+```
+
+you can check that/if they are enabled or not.
 
 You could also avoid running the tests in parallel, but users will experience this in the wild anyway in that case.
 
