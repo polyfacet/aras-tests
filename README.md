@@ -181,7 +181,8 @@ This is something that end users also could encounter, when they are doing opera
 
 ##### Solution
 
-Even though it is not recommended by "Aras", I think you should set the database in snapshot mode:
+Even though it is not recommended by "Aras", I think you should set the database in snapshot mode.  
+We have had this enabled in production environments for years without any noteable downsides.
 
 ``` sql
 ALTER DATABASE <db_name>
