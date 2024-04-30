@@ -41,7 +41,7 @@ Innovator.Client a 3rd party [innovator client](https://github.com/erdomke/Innov
 
 ### Aras fixture
 
-When integration testing aras at least one innovator session needs to be setup. This is done via configurations in **TestFixtureConfig.xml**
+When integration testing Aras at least one innovator session needs to be setup. This is done via configurations in **TestFixture.config**
 The xunit fixturing will use this configuration. The label "admin" must exist, as a default. In the example below a standard OOTB installation is used.
 When the tests spins up, the admin session is created and then other users sessions are created. As no Change Manager (CM) exist in OOTB, the user will also be created - as the configuration specifies it.
 In this case we also have a OOTBTest class inheriting ArasTestBase class - making the CMInn session conveniently available for all Test using OOTBTest.
@@ -108,7 +108,7 @@ We will have some PartTests on OOTB - which means we will have access to an admi
 We will have two tests checking if a user can manually release a part they have created.
 It is basically the same test, but with two different users/sessions used. Accomplished by using the Theory and InlineData attributes.
 
-**Note:**: The tests - attributed with Fact for XUnit - has also been attributed with Traits. See: [Traits](#traits)
+**Note:**: The tests - attributed with Fact or Theory for XUnit - has also been attributed with Traits. See: [Traits](#traits)
 
 ``` csharp
 public class PartTests : OOTBTest
