@@ -1,0 +1,1 @@
+dotnet test Aras.OOTB.Tests --logger "console;verbosity=detailed"

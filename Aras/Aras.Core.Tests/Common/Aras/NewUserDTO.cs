@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace Aras.Core.Tests.Common.Aras {
     internal class NewUserDTO {
@@ -8,6 +9,7 @@ namespace Aras.Core.Tests.Common.Aras {
         public readonly string FirstName;
         public readonly string LastName;
         public readonly List<string> MemberOfIdentities;
+        public List<Prop> Properties { get; internal set; }
 
         public NewUserDTO(
             string loginName, 
@@ -21,6 +23,15 @@ namespace Aras.Core.Tests.Common.Aras {
             FirstName = firstName;
             LastName = lastName;
             MemberOfIdentities = memberOfIdentities;
+            Properties = new List<Prop>();
+        }
+    }
+
+    internal class Prop {
+        public readonly string Name;
+        public readonly string Value;
+        public Prop(string name, string value) {
+            Name = name; Value = value;
         }
     }
 }
