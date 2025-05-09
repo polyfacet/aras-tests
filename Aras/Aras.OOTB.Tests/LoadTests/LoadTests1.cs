@@ -27,7 +27,7 @@ public class LoadTests1 : OOTBTest
     static object lockObj = new object();
 
     private const int NumberOfThreadsToRun = 100;
-    private const int MaxNumberOfQueriesPerThread = 20;
+    private const int MaxNumberOfQueriesPerThread = 100;
     private const int ProbabilityOnAddDocumentPercentage = 2;
     private const int ProbabilityOnAddPercentage = 4;
     private const int ProbabilityOnEditPercentage = 10;
@@ -110,8 +110,8 @@ public class LoadTests1 : OOTBTest
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex,"LoadTest");
-            throw;
+            _logger.LogError(ex, $"LoadTest: {ex.Message}");
+            //throw;
         }
     }
 

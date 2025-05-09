@@ -25,7 +25,8 @@ namespace Aras.OOTB.Tests {
         public static Microsoft.Extensions.Logging.ILogger CreateLogger() {
             var logger = new LoggerConfiguration()
                 .Enrich.WithProperty("Application", "ArasOOTBTests")
-                .Enrich.WithProperty("Version", "1.0.6")  //TODO: Ersätt med 
+                .Enrich.WithProperty("Version", "1.0.10")  //TODO: Ersätt med
+                .Enrich.WithProperty("ArasRelease", "1.0.1")  //TODO: Ersätt med
                 .WriteTo.Seq("http://localhost:5341") // Replace with your Seq server URL
                 .CreateLogger();
 
