@@ -40,24 +40,18 @@ public class LoadTests1 : OOTBTest
 
     [Fact]
     [Trait("Category", "LoadTest")]
-    public void Load_on_find_Parts()
+    public async Task Load_on_find_Parts()
     {
         DateTime startTime = DateTime.Now;
         var stopwatch = Stopwatch.StartNew();
 
         try
         {
-            Thread[] threads = new Thread[LoadTestConfig.NumberOfThreadsToRun];
-            for (int i = 0; i < LoadTestConfig.NumberOfThreadsToRun; i++)
-            {
-                threads[i] = new Thread(LoadTest);
-                threads[i].Start((i, AdminInn));
-            }
+            var tasks = Enumerable.Range(0, LoadTestConfig.NumberOfThreadsToRun)
+                    .Select(i => Task.Run(() => LoadTest((i, AdminInn))))
+                    .ToArray();
 
-            foreach (var thread in threads)
-            {
-                thread.Join();
-            }
+            await Task.WhenAll(tasks);
         }
         catch (Exception ex)
         {
