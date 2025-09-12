@@ -4,6 +4,7 @@
 namespace Aras.Core.Tests.ArasExtensions {
     public static class InnovatorExt {
 
+        private const int WaitRetryTimeMs = 100;
         public static Item getItemById(this Innovator.Client.IOM.Innovator inn,
             string itemType,
             string id,
@@ -37,6 +38,21 @@ namespace Aras.Core.Tests.ArasExtensions {
             Item user = inn.applyAML(aml);
             if (user.isError()) return user;
             return inn.getItemById("Identity", user.getProperty("owned_by_id", "N/A"));
+        }
+
+        public static Item ApplyAML(this Innovator.Client.IOM.Innovator inn, string aml) {
+            Item res = inn.applyAML(aml);
+            if (IsDeadLockError(res)) {
+            System.Threading.Thread.Sleep(WaitRetryTimeMs);
+            res = inn.applyAML(aml);
+            }
+            return res;       
+        }
+
+        private static bool IsDeadLockError(Item item) {
+            if (!item.isError()) return false;
+            if (item.getErrorString().Contains("deadlock victim")) return true;
+            return false;
         }
 
     }

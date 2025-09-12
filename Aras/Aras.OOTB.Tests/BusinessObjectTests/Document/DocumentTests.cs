@@ -51,7 +51,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Document
         [Trait("Domain", "Documents")]
         [Trait("Document", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_can_NOT_create_Document_without_ItemNumber()
+        public void Admin_can_not_create_Document_without_an_item_number()
         {
             // Act
             Item document = AdminInn.newItem(ITEM_TYPE, "add");

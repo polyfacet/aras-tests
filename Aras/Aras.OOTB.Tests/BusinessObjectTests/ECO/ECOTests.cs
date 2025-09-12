@@ -1,11 +1,13 @@
 ﻿using Xunit.Abstractions;
 using Innovator.Client.IOM;
 using Aras.Core.Tests;
+using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests.ArasExtensions;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
+
     public class ECOFixture : Aras.Core.Tests.Setup.ArasCollectionFixture, IDisposable
     {
         
@@ -41,7 +43,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Category", "Core")]
         [Trait("Domain", "ECO")]
         [Trait("SmokeTest", "1")]
-        public void Admin_can_find_ECO()
+        public void Admin_can_find_an_ECO()
         {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "get");
@@ -56,7 +58,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_can_create_ECO()
+        public void Admin_can_create_an_ECO()
         {
             // Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
@@ -74,7 +76,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         [Trait("Domain", "ECO")]
         [Trait("ECO", "Create")]
         [Trait("Business", "OOTB")]
-        public void Admin_can_NOT_create_ECO_without_a_Title()
+        public void Admin_can_not_create_ECO_without_a_title()
         {
             // Arrange/Act
             Item eco = AdminInn.newItem(ITEM_TYPE, "add");
@@ -86,9 +88,9 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
             AssertItem.IsError(eco);
         }
 
-        [Theory]
+           [Theory]
         [InlineData("Part")]
-        //[InlineData("Document")]
+        [InlineData("Document")]
         public void CM_can_Release_an_Item_via_ECO(string itemTypeToRelease) {
             // Arrange
             Arrange arrange = NewArrange(CMInn);
@@ -118,5 +120,6 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
         private Arrange NewArrange(Innovator.Client.IOM.Innovator inn) {
             return new Arrange(inn, Arranger);
         }
+
     }
 }

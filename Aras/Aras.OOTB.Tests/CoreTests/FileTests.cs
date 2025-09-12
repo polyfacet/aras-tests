@@ -2,6 +2,7 @@ using Innovator.Client.IOM;
 using Xunit.Abstractions;
 using Aras.Core.Tests.ArasExtensions;
 using Aras.OOTB.Tests.Fixture;
+using Aras.Core.Tests;
 
 namespace Aras.OOTB.Tests.CoreTests;
 

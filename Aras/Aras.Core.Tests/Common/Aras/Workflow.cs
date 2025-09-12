@@ -101,7 +101,7 @@ namespace Aras.Core.Tests.Common.Aras {
             aml += body;
             aml += "</AML>";
             
-            return inn.applyAML(aml);
+            return inn.ApplyAML(aml);
         }
 
         public static Item GetActiveActivity(Innovator.Client.IOM.Innovator inn, string activityId, string withVotePathName) {
@@ -122,7 +122,7 @@ namespace Aras.Core.Tests.Common.Aras {
                     </Relationships>
                 </Item>
                 </AML>";
-            return inn.applyAML(aml);
+            return inn.ApplyAML(aml);
         }
     }
 }

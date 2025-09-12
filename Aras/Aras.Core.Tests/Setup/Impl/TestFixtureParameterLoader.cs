@@ -6,6 +6,23 @@ using System.Xml;
 namespace Aras.Core.Tests.Setup.Impl {
     internal partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
     {
+
+        private string? _configFileName;
+        private string ConfigFileName
+        {
+            get { 
+                if (String.IsNullOrEmpty(_configFileName)) {
+                    _configFileName = CONFIG_FILE_NAME;
+                    string? testEnvironmentVariable = Environment.GetEnvironmentVariable("TestEnv");
+                    if (!String.IsNullOrEmpty(testEnvironmentVariable)) {
+                        _configFileName = $"{testEnvironmentVariable}_{_configFileName}";
+                    }
+                }
+                return _configFileName; 
+            }
+        }
+        
+
         private const string CONFIG_FILE_NAME = "TestFixture.config";
         private string Url = "http://localhost/innovator";
         private string DBName = "InnovatorSolutions";
@@ -45,11 +62,33 @@ namespace Aras.Core.Tests.Setup.Impl {
         }
 
         private string GetConfigFilePath() {
-            string path = Path.Combine(AppContext.BaseDirectory, CONFIG_FILE_NAME);
+            string path = Path.Combine(AppContext.BaseDirectory, ConfigFileName);
             if (File.Exists(path)) {
                 return path;
             }
-            throw new FileNotFoundException(path);
+            string pathAlternative = GetConfigFileFromNearestParentFolder(path);
+            
+            if (File.Exists(pathAlternative)) {
+                return pathAlternative;
+            }
+
+            string errorMessage = $"Config file not found: {path}";
+            errorMessage += $" or {ConfigFileName} not found in any parent directory.";
+            throw new FileNotFoundException(errorMessage);
+        }
+
+        private string GetConfigFileFromNearestParentFolder(string path) {
+            string pathAlternative = "N/A";
+            DirectoryInfo currentDir = new DirectoryInfo(path);
+            DirectoryInfo? parentDir = currentDir.Parent;
+            while (parentDir != null) {
+                pathAlternative = Path.Combine(parentDir.FullName, ConfigFileName);
+                if (File.Exists(pathAlternative)) {
+                    return pathAlternative;
+                }
+                parentDir = parentDir.Parent; 
+            }
+            return pathAlternative;
         }
 
         internal HashSet<string> GetUserLabels() {
@@ -95,6 +134,20 @@ namespace Aras.Core.Tests.Setup.Impl {
 
             NewUserDTO newUserDTO = new NewUserDTO(
                 loginName, password, firstName, lastName, memberOfList);
+
+            var propertyNodes = userNode.SelectNodes("./Properties/Property");
+            if (propertyNodes != null) {
+                foreach (XmlNode propertyNode in propertyNodes)
+                {
+                    string? name = propertyNode.Attributes?.GetNamedItem("name")?.Value;
+                    string? value = propertyNode.Attributes?.GetNamedItem("value")?.Value;
+                    if (name != null && value!= null) {
+                        Prop prop = new Prop(name, value);
+                        newUserDTO.Properties.Add(prop);
+                    }
+                }
+            }
+
             return newUserDTO;
 
             throw new TestFixtureConfigException("Could not find config for New User: " + username);

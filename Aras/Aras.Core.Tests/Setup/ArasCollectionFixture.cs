@@ -34,6 +34,11 @@ namespace Aras.Core.Tests.Setup
             if (!users.UserExists(loginName)) {
                 Item newArasUser = users.CreateNewUser(
                     newUser.LoginName, newUser.Password, newUser.FirstName, newUser.LastName);
+                foreach (var prop in newUser.Properties) {
+                    newArasUser.setAction("edit");
+                    newArasUser.setProperty(prop.Name, prop.Value);
+                    newArasUser.apply();
+                }
                 foreach (var memberOf in newUser.MemberOfIdentities) {
                     users.AddUserAsMember(newArasUser, memberOf);
                 }
