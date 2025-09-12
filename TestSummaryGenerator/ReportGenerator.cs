@@ -1,3 +1,5 @@
+using System.Text;
+
 public class ReportGenerator
 {
     public static void WriteTestSummaryReport(string sourceFolder, List<TestMethodInfo> testMethods, string primaryTraitKey, bool includeClassName)
@@ -26,6 +28,11 @@ public class ReportGenerator
 
         var md = new System.Text.StringBuilder();
         md.AppendLine("# Test Summary\n");
+
+        // Collect all trait group keys for TOC
+        var allGroupKeys = traitGroups.Keys.ToList();
+        AppendTableOfContents(md, allGroupKeys);
+        
 
         // List "primaryTraitKey" traits first
         foreach (var group in traitGroups.Where(g => g.Key.StartsWith($"{primaryTraitKey}:")))
@@ -57,5 +64,18 @@ public class ReportGenerator
         string fullPath = Path.GetFullPath(Path.Combine(sourceFolder, "TestSummary.md"));
         File.WriteAllText(fullPath, md.ToString());
         Console.WriteLine($"Test summary generated: {fullPath}");
+    }
+
+    private static void AppendTableOfContents(StringBuilder md, List<string> allGroupKeys)
+    {
+        // Table of Contents
+        md.AppendLine("**Table of Contents**").AppendLine();
+        foreach (var key in allGroupKeys)
+        {
+            // Markdown anchor: replace spaces and punctuation with '-', lower-case
+            var anchor = key.Replace(" ", "-").Replace(":", "").Replace(".", "").ToLower();
+            md.AppendLine($"- [{key}](#{anchor})");
+        }
+        md.AppendLine();
     }
 }

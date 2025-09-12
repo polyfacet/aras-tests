@@ -1,5 +1,21 @@
 # Test Summary
 
+**Table of Contents**
+
+- [Category: Core](#category-core)
+- [Core: Login](#core-login)
+- [No Trait](#no-trait)
+- [SmokeTest: 2](#smoketest-2)
+- [Domain: Documents](#domain-documents)
+- [SmokeTest: 1](#smoketest-1)
+- [Document: Create](#document-create)
+- [Business: OOTB](#business-ootb)
+- [Domain: ECO](#domain-eco)
+- [ECO: Create](#eco-create)
+- [Domain: Part](#domain-part)
+- [Part: Create](#part-create)
+- [Part: Release](#part-release)
+
 ## Domain: Documents
 
 - `Admin_can_find_a_Document`
