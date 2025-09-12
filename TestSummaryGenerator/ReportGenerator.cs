@@ -11,20 +11,20 @@ public class ReportGenerator
         var md = new System.Text.StringBuilder();
         md.AppendLine("# Test Summary\n");
 
-        // Collect all trait group keys for TOC
-        var allGroupKeys = traitGroups.Keys.ToList();
-        AppendTableOfContents(md, allGroupKeys);
-        
+        // Sort group keys: primaryTraitKey first, then alphabetical, "No Trait" last
+        var sortedGroupKeys = traitGroups.Keys
+            .OrderBy(k =>
+                k == "No Trait" ? 2
+                : k.StartsWith($"{primaryTraitKey}:") ? 0
+                : 1)
+            .ThenBy(k => k == "No Trait" ? "" : k)
+            .ToList();
 
-        // List "primaryTraitKey" traits first
-        foreach (var group in traitGroups.Where(g => g.Key.StartsWith($"{primaryTraitKey}:")))
-        {
-            AppendGroup(md, group, includeClassName);
-        }
+        AppendTableOfContents(md, sortedGroupKeys);
 
-        // Then list all other traits except "primaryTraitKey"
-        foreach (var group in traitGroups.Where(g => !g.Key.StartsWith($"{primaryTraitKey}:")))
+        foreach (var key in sortedGroupKeys)
         {
+            var group = new KeyValuePair<string, List<TraitGroupEntry>>(key, traitGroups[key]);
             AppendGroup(md, group, includeClassName);
         }
 
@@ -61,7 +61,7 @@ public class ReportGenerator
     private static void AppendGroup(StringBuilder md, KeyValuePair<string, List<TraitGroupEntry>> group, bool includeClassName)
     {
         md.AppendLine($"## {group.Key}").AppendLine();
-        foreach (var test in group.Value)
+        foreach (var test in group.Value.OrderBy(t => t.MethodName))
         {
             if (includeClassName)
                 md.AppendLine($"- `{test.ClassName}.{test.MethodName}`");
