@@ -16,6 +16,7 @@ Project elaborating on tests in the context of Aras Innovator
     - [Parallel running](#parallel-running)
       - [Solution](#solution)
   - [References and further reading](#references-and-further-reading)
+- [xUnit Test Summary generator](#xunit-test-summary-generator)
 - [Playwright for .NET](#playwright-for-net)
 - [Stryker](#stryker)
 
@@ -215,6 +216,11 @@ You could also avoid running the tests in parallel, but users will experience th
 4. [Extend xUnit Categories](https://github.com/brendanconnolly/Xunit.Categories)
 5. [About Test Naming conventions](https://enterprisecraftsmanship.com/posts/you-naming-tests-wrong/)
 6. [Unit testing best practices (Microsoft)](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
+
+## xUnit Test Summary generator
+
+To get an overview of the tests a Test Summary Generator is included in this project.
+[Test Summary Generator](./TestSummaryGenerator/TestSummaryGeneratorREADME.md)
 
 ## Playwright for .NET
 

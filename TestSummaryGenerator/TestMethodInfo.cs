@@ -1,0 +1,1 @@
+public record TestMethodInfo(string ClassName, string MethodName, Dictionary<string, string> Traits);
