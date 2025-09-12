@@ -13,6 +13,8 @@ public class Parser
             var tree = CSharpSyntaxTree.ParseText(code);
             var root = tree.GetRoot();
 
+            // Build a map of const string values in the file
+            var constsMap = BuildConstMap(root);
             var classes = root.DescendantNodes().OfType<ClassDeclarationSyntax>();
             foreach (var cls in classes)
             {
@@ -30,8 +32,17 @@ public class Parser
                     {
                         if (attr.Name.ToString() == "Trait" && attr.ArgumentList?.Arguments.Count == 2)
                         {
-                            var key = attr.ArgumentList.Arguments[0].ToString().Trim('"');
-                            var value = attr.ArgumentList.Arguments[1].ToString().Trim('"');
+                            var keyExpr = attr.ArgumentList.Arguments[0].Expression;
+                            var valueExpr = attr.ArgumentList.Arguments[1].Expression;
+
+                            string key = keyExpr.ToString().Trim('"');
+                            string value;
+                            // If value is an identifier and matches a const, use the const value
+                            if (valueExpr is IdentifierNameSyntax id && constsMap.TryGetValue(id.Identifier.Text, out var constValue))
+                                value = constValue;
+                            else
+                                value = valueExpr.ToString().Trim('"');
+
                             traits[key] = value;
                         }
                     }
@@ -40,5 +51,20 @@ public class Parser
             }
         }
         return testMethods;
+    }
+
+    private static Dictionary<string, string> BuildConstMap(SyntaxNode root)
+    {
+        return root.DescendantNodes()
+            .OfType<FieldDeclarationSyntax>()
+            .Where(f => f.Modifiers.Any(m => m.Text == "const"))
+            .SelectMany(f => f.Declaration.Variables
+                .Where(v => f.Declaration.Type.ToString() == "string" && v.Initializer != null)
+                .Select(v => new
+                {
+                    Name = v.Identifier.Text,
+                    Value = v.Initializer.Value.ToString().Trim('"')
+                }))
+            .ToDictionary(x => x.Name, x => x.Value);
     }
 }

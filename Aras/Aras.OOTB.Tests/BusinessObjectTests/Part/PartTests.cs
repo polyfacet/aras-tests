@@ -19,7 +19,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 
         [Fact]
         [Trait("Category", "Core")]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("SmokeTest", "1")]
         public void Admin_can_find_a_Part()
         {
@@ -33,7 +33,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Part", "Create")]
         public void Admin_can_create_a_Part()
         {
@@ -53,7 +53,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         [Theory]
         [InlineData("admin")]
         [InlineData("CM")]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Part", "Release")]
         private void Users_can_manually_Release_Part(string user) {
             Innovator.Client.IOM.Innovator inn = GetInnovatorBySessionName(user);
@@ -77,7 +77,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Business", "OOTB")]
         public void CM_can_delete_a_new_Part()
         {
@@ -94,7 +94,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Business", "OOTB")]
         public void CM_can_not_delete_a_Released_Part()
         {
@@ -110,7 +110,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Business", "OOTB")]
         public void User_can_not_edit_a_part_locked_by_another_user()
         {
@@ -139,7 +139,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Business", "OOTB")]
         public void CM_can_not_edit_a_Released_Part()
         {
@@ -157,7 +157,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Part
         }
 
         [Fact]
-        [Trait("Domain", "Part")]
+        [Trait("Domain", ITEM_TYPE)]
         [Trait("Business", "OOTB")]
         public void CM_can_create_a_new_Revision_of_a_Released_Part()
         {
