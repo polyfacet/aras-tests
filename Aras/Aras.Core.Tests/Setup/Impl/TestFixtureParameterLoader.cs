@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 
 namespace Aras.Core.Tests.Setup.Impl {
-    internal partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
+    public partial class TestFixtureParameterLoader : IConnectionParameterLoader, INewUserDTO
     {
 
         private string? _configFileName;
@@ -26,12 +26,13 @@ namespace Aras.Core.Tests.Setup.Impl {
         private const string CONFIG_FILE_NAME = "TestFixture.config";
         private string Url = "http://localhost/innovator";
         private string DBName = "InnovatorSolutions";
-        private readonly XmlDocument XmlDoc;
+        public readonly XmlDocument XmlDoc;
 
         public TestFixtureParameterLoader()
         {
             XmlDoc = new XmlDocument();
-            XmlDoc.Load(GetConfigFilePath());
+            string configFilePath = GetConfigFilePath();
+            XmlDoc.Load(configFilePath);
         }
 
         public ConnectionParameters GetConnectionParameters(string name)
@@ -66,6 +67,12 @@ namespace Aras.Core.Tests.Setup.Impl {
             if (File.Exists(path)) {
                 return path;
             }
+
+            string? pathFromEnvironmentVariable = GetPathFromEnvironmentVariable("TestFixturePath");
+            if (!string.IsNullOrEmpty(pathFromEnvironmentVariable) && File.Exists(pathFromEnvironmentVariable)) {
+                return pathFromEnvironmentVariable;
+            }
+
             string pathAlternative = GetConfigFileFromNearestParentFolder(path);
             
             if (File.Exists(pathAlternative)) {
@@ -75,6 +82,10 @@ namespace Aras.Core.Tests.Setup.Impl {
             string errorMessage = $"Config file not found: {path}";
             errorMessage += $" or {ConfigFileName} not found in any parent directory.";
             throw new FileNotFoundException(errorMessage);
+        }
+
+        private string? GetPathFromEnvironmentVariable(string environmentVariableName) {
+            return Environment.GetEnvironmentVariable(environmentVariableName);
         }
 
         private string GetConfigFileFromNearestParentFolder(string path) {

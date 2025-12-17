@@ -17,11 +17,17 @@ namespace Aras.Core.Tests.Common.Aras {
         }
 
         public bool UserExists(string login) {
+            Item user = GetUserByLoginName(login);
+            if (user.isError()) return false;
+            return true;
+        }
+
+        public Item GetUserByLoginName(string login)
+        {
             Item user = Inn.newItem("User", "get");
             user.setProperty("login_name", login);
             user = user.apply();
-            if (user.isError()) return false;
-            return true;
+            return user;
         }
 
         public bool IsMemberOf(Item groupIdentity) {
@@ -117,5 +123,11 @@ namespace Aras.Core.Tests.Common.Aras {
             return member;
         }
 
+        internal bool UserIsEnabled(string loginName)
+        {
+            Item user = GetUserByLoginName(loginName);
+            bool logonEnabled = (user.getProperty("logon_enabled", "0") == "1") ? true : false;
+            return logonEnabled;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 
 namespace Aras.Core.Tests.Common.Aras {
-    internal class NewUserDTO {
+    public class NewUserDTO {
 
         public readonly string LoginName;
         public readonly string Password;
@@ -27,7 +27,7 @@ namespace Aras.Core.Tests.Common.Aras {
         }
     }
 
-    internal class Prop {
+    public class Prop {
         public readonly string Name;
         public readonly string Value;
         public Prop(string name, string value) {

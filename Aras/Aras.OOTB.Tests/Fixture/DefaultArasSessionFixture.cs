@@ -39,6 +39,10 @@ namespace Aras.OOTB.Tests.Fixture
         internal Innovator.Client.IOM.Innovator GetInnovatorBySessionName(string name) {
             return fixture.GetInnovatorBySessionName(name);
         }
+
+        public Innovator.Client.IOM.Innovator CreateAndAddSessionFromLabel(string name) {
+            return fixture.CreateAndAddSessionFromLabel(name);
+        }
     }
    
 }

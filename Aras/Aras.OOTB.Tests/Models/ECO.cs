@@ -64,7 +64,7 @@ namespace Aras.OOTB.Tests.Models {
                     if (user.IsDirectMemberOf(assignmentIdentity) ||
                         currentUserIdentity.getID().Equals(assignmentIdentity.getID()) ) {
                         // Vote
-                        Item result = Common.Aras.Workflow.ApplyVote(Inn, activity.getID(), assignmentId, pathId, ArasTestBase.TEST_NAME);
+                        Item result = Common.Aras.Workflow.ApplyVote(Inn, activity.getID(), assignmentId, pathId, ArasTestBase.TEST_NAME, new List<string>());
                         return result;
                     }
                 }

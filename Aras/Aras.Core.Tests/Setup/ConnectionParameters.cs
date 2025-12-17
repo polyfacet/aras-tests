@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Aras.Core.Tests.Setup
 {
-    internal class ConnectionParameters
+    public class ConnectionParameters
     {
 
         public ConnectionParameters(string connectionName, string url, string dbName, string loginName, string password) { 

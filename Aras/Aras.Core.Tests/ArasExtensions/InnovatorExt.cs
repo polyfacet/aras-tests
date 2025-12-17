@@ -30,6 +30,16 @@ namespace Aras.Core.Tests.ArasExtensions {
             return item;
         }
 
+        public static Item GetItemById(this Innovator.Client.IOM.Innovator inn,
+            string itemType,
+            string id            
+            ) {
+            Item item = inn.newItem(itemType, "get");
+            item.setID(id);
+            item = item.apply();
+            return item;
+        }
+
         public static Item GetIdentity(this Innovator.Client.IOM.Innovator inn) {
             string userId = inn.getUserID();
             string aml = $@"<AML>

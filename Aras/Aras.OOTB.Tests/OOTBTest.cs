@@ -1,6 +1,8 @@
 ﻿using Aras.Core.Tests;
 using Aras.Core.Tests.Arranging;
 using Aras.OOTB.Tests.Fixture;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using Xunit.Abstractions;
 
 
@@ -19,6 +21,23 @@ namespace Aras.OOTB.Tests {
             defaultFixture = fixture;
             Arranger = new OOTBArranger();
         }
+
+        public static Microsoft.Extensions.Logging.ILogger CreateLogger()
+        {
+            var logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Application", "ArasOOTBTests")
+                .Enrich.WithProperty("Version", "1.0.10")  //TODO: Ersätt med
+                .Enrich.WithProperty("ArasRelease", "1.0.1")  //TODO: Ersätt med
+                .WriteTo.Seq("http://localhost:5341") // Replace with your Seq server URL
+                .CreateLogger();
+
+            return LoggerFactory.Create(builder =>
+            {
+                builder.AddSerilog(logger);
+            }).CreateLogger<OOTBTest>();
+        }
+        
+        
 
         public Innovator.Client.IOM.Innovator GetInnovatorBySessionName(string sessionName) {
             return defaultFixture.GetInnovatorBySessionName(sessionName);

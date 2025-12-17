@@ -1,4 +1,5 @@
 ﻿using Innovator.Client;
+using System.Text.RegularExpressions;
 
 namespace Aras.Core.Tests.Setup
 {
@@ -61,10 +62,23 @@ namespace Aras.Core.Tests.Setup
                 connectionPreferences.DefaultTimeout = TimeOutMilliSecs;
                 conn = Innovator.Client.Factory.GetConnection(connectionPreferences);
             }
-            conn.Login(new ExplicitCredentials(DB, UserName, Password));
+            if (IsMD5(Password))
+            {
+                conn.Login(new ExplicitHashCredentials(DB, UserName, Password));
+            }
+            else
+            {
+                conn.Login(new ExplicitCredentials(DB, UserName, Password));
+            }
             inn = new Innovator.Client.IOM.Innovator(conn);
             
             return inn;
+        }
+
+        public static bool IsMD5(string input)
+        {
+            if (String.IsNullOrEmpty(input)) return false;
+            return Regex.IsMatch(input, "^[0-9a-fA-F]{32}$");
         }
     }
 }

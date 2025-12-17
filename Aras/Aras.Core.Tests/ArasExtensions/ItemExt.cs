@@ -38,6 +38,7 @@ public static class ItemExt {
         }
         catch (Exception ex) {
           Thread.Sleep(WaitRetryTimeMs);
+          Console.WriteLine(ex.ToString());
           return item.getProperty(propertyName);
         }
       }

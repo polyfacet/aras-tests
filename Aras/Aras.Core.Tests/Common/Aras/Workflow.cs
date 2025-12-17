@@ -35,22 +35,20 @@ namespace Aras.Core.Tests.Common.Aras {
             List<Item> activeActivities = new();
             string votePathCondition = string.Empty;
             if (!String.IsNullOrEmpty(withVotePathName)) {
-                votePathCondition = $"<name>{withVotePathName}</name>";
+                votePathCondition = $"<Item action='get' type='Workflow Process Path'><name>{withVotePathName}</name></Item>";
             }
             string aml = $@"<AML>
                     <Item type = 'Workflow Process' action='get' id='{workflowProcess.getID()}' >
                         <Relationships>
                             <Item action ='get' type='Workflow Process Activity' select='related_id'>
                                 <related_id>
-                                    <Item type='Activity' action='get' select='id,state'>
+                                    <Item type='Activity' action='get' select='id,state,name,label'>
                                         <state>Active</state>
                                         <Relationships>
                                             <Item action='get' type='Activity Assignment'>
                                                 <closed_on condition='is null'></closed_on>
                                            </Item>
-                                           <Item action='get' type='Workflow Process Path'>
-                                                {votePathCondition}     
-                                           </Item>
+                                           {votePathCondition}     
                                         </Relationships>
                                     </Item>
                                 </related_id>
@@ -78,9 +76,19 @@ namespace Aras.Core.Tests.Common.Aras {
             string activityId, 
             string assignmentId, 
             string pathId, 
-            string comments) {
+            string comments,
+            List<string> taskIds) {
             
             //var AuthMode = "password";
+            
+            string taskBody = "<Tasks/>";
+            if (taskIds.Count > 0) {
+                taskBody = "<Tasks>";
+                foreach (var taskId in taskIds)
+                    taskBody += $"<Task id='{taskId}' completed='1'></Task>";
+                taskBody += "</Tasks>";
+            }
+            
             var body = "";
             body += "<Item type='Activity' action='EvaluateActivity'>";
             body += "<Activity>" + activityId + "</Activity>";
@@ -89,7 +97,7 @@ namespace Aras.Core.Tests.Common.Aras {
             body += "<Paths>";
             body += "<Path id='" + pathId + "'></Path>";
             body += "</Paths>";
-            body += "<Tasks/>";
+            body += taskBody;
             body += "<Variables/>";
             body += "<Authentication mode=''/>";
             //body += "<Authentication mode='" + AuthMode + "'>" + pwdHash + "</Authentication>";
