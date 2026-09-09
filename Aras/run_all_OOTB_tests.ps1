@@ -1,1 +1,1 @@
-dotnet test Aras.OOTB.Tests --logger "console;verbosity=detailed"
+dotnet test --project Aras.OOTB.Tests\Aras.OOTB.Tests.csproj --retry-failed-tests 3 --output Detailed
