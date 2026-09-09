@@ -1,16 +1,15 @@
-﻿using Xunit.Abstractions;
-using Innovator.Client.IOM;
+﻿using Innovator.Client.IOM;
 using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests;
-using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests.ArasExtensions;
+using Aras.Core.Tests.Setup;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.Part
 {
 
-    public class PartTests : OOTBTest
+    public class PartTests : OOTBTestBase
     {
-        public PartTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        public PartTests(ArasCollectionFixture fixture) : base(fixture)
         {
         }
 

@@ -27,7 +27,7 @@ With this background this project will focus on a integration tests for Aras. A 
 
 ## Aras General Integration XUnit Tests
 
-The integration tests are using [XUnit](https://xunit.net) as the testing framework. There are several reasons for that:
+The integration tests target .NET 10 and use [xUnit 3](https://xunit.net) as the testing framework. There are several reasons for that:
 
 - Well documented
 - It is popular
@@ -43,20 +43,26 @@ Innovator.Client a 3rd party [innovator client](https://github.com/erdomke/Innov
 ### Aras fixture
 
 When integration testing Aras at least one innovator session needs to be setup. This is done via configurations in **TestFixture.config**
-The xunit fixturing will use this configuration. The label "admin" must exist, as a default. In the example below a standard OOTB installation is used.
+The xUnit assembly fixture uses this configuration. The label "admin" must exist, as a default. In the example below a standard OOTB installation is used.
 When the tests spins up, the admin session is created and then other users sessions are created. As no Change Manager (CM) exist in OOTB, the user will also be created - as the configuration specifies it.
-In this case we also have a OOTBTest class inheriting ArasTestBase class - making the CMInn session conveniently available for all Test using OOTBTest.
+The assembly fixture is registered in `Aras.OOTB.Tests/Usings.cs`. OOTB tests can inherit `OOTBTestBase` to get convenient access to the `AdminInn` and `CMInn` sessions, arranging helpers, and the shared logger.
 
 ``` csharp
 
-public class OOTBTest : ArasTestBase {
-    protected readonly Innovator.Client.IOM.Innovator CMInn;
+public class PartTests : OOTBTestBase
+{
+  public PartTests(ArasCollectionFixture fixture) : base(fixture)
+  {
+  }
 
-    public OOTBTest(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output) {
-        CMInn = fixture.GetInnovatorBySessionName("CM");
-    }
+  // AdminInn and CMInn are provided by OOTBTestBase.
+  // Arrange helpers are available through NewArrange(...).
 }
 ```
+
+The fixture configuration template is available at `Aras/Aras.Core.Tests/TestFixture.config.template`. Copy it to `TestFixture.config` in the test project output/configuration location and adjust the connection details before running integration tests.
+
+The shared OOTB logger can be created with `OOTBTestBase.CreateLogger()`. It is configured to write to the local Seq endpoint at `http://localhost:5341`.
 
 #### Example fixture configuration
 
@@ -112,9 +118,9 @@ It is basically the same test, but with two different users/sessions used. Accom
 **Note:**: The tests - attributed with Fact or Theory for XUnit - has also been attributed with Traits. See: [Traits](#traits)
 
 ``` csharp
-public class PartTests : OOTBTest
+public class PartTests : OOTBTestBase
 {
-    public PartTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+  public PartTests(ArasCollectionFixture fixture) : base(fixture)
     {
     }
 
@@ -130,10 +136,19 @@ public class PartTests : OOTBTest
         User_can_manually_Release_Part(inn);
     }
 
+    // Example Using fixture sessions
+    [Fact]
+    private void Admin_can_find_a_Part() {
+      Item searchItem = AdminInn.newItem("Part", "get");
+      searchItem.setAttribute("maxRecords", "1");
+      searchItem = searchItem.apply();
+      AssertItem.IsNotError(searchItem);
+    }
+
     private void User_can_manually_Release_Part(Innovator.Client.IOM.Innovator inn) {
         // Arrange
         // We use the Arrange class to make use of a common way to create a default item of specified item type
-        // Within OOTBTest an IArasArranger (Implementations of CreateDefault etc.) is defined and injected to the Arrange constructor
+        // OOTBTestBase provides the arranger used by NewArrange.
         Arrange arrange = NewArrange(inn);
         Item part = arrange.CreateDefault(ITEM_TYPE);
 

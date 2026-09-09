@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
+[assembly: AssemblyFixture(typeof(Aras.Core.Tests.Setup.ArasCollectionFixture))]
+
 namespace Aras.Core.Tests.Setup
 {
     public class ArasCollectionFixture : IArasFixture
@@ -107,11 +109,4 @@ namespace Aras.Core.Tests.Setup
         }
     }
 
-    [CollectionDefinition("Aras setup")]
-    public class DatabaseCollection : ICollectionFixture<ArasCollectionFixture>
-    {
-        // This class has no code, and is never created. Its purpose is simply
-        // to be the place to apply [CollectionDefinition] and all the
-        // ICollectionFixture<> interfaces.
-    }
 }

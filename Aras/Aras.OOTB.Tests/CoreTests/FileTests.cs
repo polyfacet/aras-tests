@@ -1,14 +1,13 @@
 using Innovator.Client.IOM;
-using Xunit.Abstractions;
 using Aras.Core.Tests.ArasExtensions;
-using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests;
+using Aras.Core.Tests.Setup;
 
 namespace Aras.OOTB.Tests.CoreTests;
 
-public class FileTests : OOTB.Tests.OOTBTest
+public class FileTests : OOTBTestBase
 {
-        public FileTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public FileTests(ArasCollectionFixture fixture) : base(fixture)
         {}
 
         private const string ITEM_TYPE = "File";

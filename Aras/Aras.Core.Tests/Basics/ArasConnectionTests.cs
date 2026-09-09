@@ -1,13 +1,12 @@
 using Aras.Core.Tests.Setup;
 using Xunit;
-using Xunit.Abstractions;
 using Aras.Core.Tests.Arranging;
 
 namespace Aras.Core.Tests.Basics
 {
     public class ArasConnectionTests : ArasTestBase
     {
-        public ArasConnectionTests(ArasCollectionFixture fixture, ITestOutputHelper output) : base(fixture, output)
+        public ArasConnectionTests(ArasCollectionFixture fixture) : base(fixture)
         {
         }
 
@@ -18,7 +17,6 @@ namespace Aras.Core.Tests.Basics
         {
             string loggedInUserId = fixture.GetAdminInn().getUserID();
             Assert.False(string.IsNullOrEmpty(loggedInUserId), "There should be a user id");
-            output.WriteLine(fixture.GetAdminInn().getUserID());
         }
 
         [Fact]

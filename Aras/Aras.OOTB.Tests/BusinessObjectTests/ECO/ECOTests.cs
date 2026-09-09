@@ -1,36 +1,21 @@
-﻿using Xunit.Abstractions;
-using Innovator.Client.IOM;
+﻿using Innovator.Client.IOM;
 using Aras.Core.Tests;
-using Aras.OOTB.Tests.Fixture;
 using Aras.Core.Tests.Arranging;
 using Aras.Core.Tests.ArasExtensions;
+using Aras.Core.Tests.Setup;
+using Microsoft.Extensions.Logging;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
 {
 
-    public class ECOFixture : Aras.Core.Tests.Setup.ArasCollectionFixture, IDisposable
+    public class ECOTests
     {
-        
-        public ECOFixture()
-        {
-            
-        }
-
-        public new void Dispose()
-        {
-            //throw new NotImplementedException();
-        }
-    }
-
-
-
-    public class ECOTests : IClassFixture<ECOFixture>
-    {
-        ECOFixture fixture;
+        private static readonly ILogger Logger = OOTBTestBase.CreateLogger();
+        ArasCollectionFixture fixture;
         Innovator.Client.IOM.Innovator AdminInn;
         Innovator.Client.IOM.Innovator CMInn;
         OOTBArranger Arranger;
-        public ECOTests(ECOFixture fixture) {
+        public ECOTests(ArasCollectionFixture fixture) {
             this.fixture = fixture;
             AdminInn = fixture.GetAdminInn();
             CMInn = fixture.GetInnovatorBySessionName("CM");
@@ -95,6 +80,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
             // Arrange
             Arrange arrange = NewArrange(CMInn);
             Item ecoItem = arrange.CreateDefault(ITEM_TYPE);
+            string ecoNumber = ecoItem.getProperty("item_number");
             Item itemToRelease = arrange.CreateDefault(itemTypeToRelease);
             Models.ECO eco = new Models.ECO(ecoItem);
             arrange.Run(() =>
@@ -103,12 +89,16 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.ECO
             });
 
             // Act/(Assert)
+            Logger.LogInformation("Signing off ECO {ECOItemNumber} with action {Action}", ecoNumber, "Submit to Planning");
             Item result = eco.SignOff("Submit to Planning");
             AssertItem.IsNotError(result);
+            Logger.LogInformation("Signing off ECO {ECOItemNumber} with action {Action}", ecoNumber, "Start Work");
             result = eco.SignOff("Start Work");
             AssertItem.IsNotError(result);
+            Logger.LogInformation("Signing off ECO {ECOItemNumber} with action {Action}", ecoNumber, "Submit to Review");
             result = eco.SignOff("Submit to Review");
             AssertItem.IsNotError(result);
+            Logger.LogInformation("Signing off ECO {ECOItemNumber} with action {Action}", ecoNumber, "Approve Changes");
             result = eco.SignOff("Approve Changes");
             AssertItem.IsNotError(result);
 

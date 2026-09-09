@@ -1,15 +1,11 @@
-﻿using Xunit.Abstractions;
-using Innovator.Client.IOM;
-using Aras.OOTB.Tests.Fixture;
+﻿using Innovator.Client.IOM;
 using Aras.Core.Tests;
 
 namespace Aras.OOTB.Tests.BusinessObjectTests.Document
 {
-    public class DocumentTests : OOTBTest
+    public class DocumentTests : OOTBTestBase
     {
-        public DocumentTests(DefaultArasSessionFixture fixture, ITestOutputHelper output) : base(fixture, output)
-        {
-        }
+        public DocumentTests(Aras.Core.Tests.Setup.ArasCollectionFixture fixture) : base(fixture) { }
 
         private const string ITEM_TYPE = "Document";
 
@@ -60,6 +56,7 @@ namespace Aras.OOTB.Tests.BusinessObjectTests.Document
 
             // Assert
             AssertItem.IsError(document);
+
 
         }
     }
